@@ -4,15 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import client from './apollo-client';
+import { ApolloProvider } from '@apollo/client';
+
 import { ProSidebarProvider } from 'react-pro-sidebar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <ProSidebarProvider>
-      <App />
-    </ProSidebarProvider>
-  </React.StrictMode>
+  <ApolloProvider client={client}>
+    <React.StrictMode>
+      <ProSidebarProvider>
+        <App />
+      </ProSidebarProvider>
+    </React.StrictMode>
+  </ApolloProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

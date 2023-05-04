@@ -1,0 +1,63 @@
+.me {
+  background-color: #3f4e4f;
+  width: 70%;
+  padding: 15px 15px 15px 5px;
+  color: white;
+  text-align: right;
+  margin-bottom: 5px;
+  border-radius: 10px 0px 10px 10px;
+  margin-left: auto;
+  margin-right: 0px;
+}
+
+.me p {
+  color: white;
+}
+.notme p {
+  color: white;
+}
+
+.notme {
+  background-color: #2c3639;
+  width: 70%;
+  padding: 15px 5px 15px 15px;
+  color: white;
+  margin-bottom: 5px;
+  border-radius: 0px 10px 10px 10px;
+}
+
+.chat h6 {
+  color: #3f4e4f;
+  font-weight: 600;
+}
+
+.chatMessage {
+  height: 420px;
+  overflow: auto;
+}
+
+.chatMessage::-webkit-scrollbar {
+  display: none;
+}
+
+.inputChat {
+  position: absolute;
+  bottom: 9px;
+  width: 94%;
+}
+
+.inputChat input {
+  margin-top: 5px;
+  border: none;
+  width: 100%;
+  padding: 5px;
+  font-size: 14px;
+}
+.inputChat input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: grey;
+  font-size: 12px;
+}

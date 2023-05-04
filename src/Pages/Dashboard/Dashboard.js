@@ -7,6 +7,8 @@ import Navigation from '../../Components/Sidebar/Sidebar';
 
 import { HiBookOpen, HiOutlineLogout, HiOutlineBars3CenterLeft } from "react-icons/hi"
 import { FaBars } from "react-icons/fa"
+import { MdOutlineSell } from "react-icons/md"
+
 
 
 function Dashboard() {
@@ -34,9 +36,36 @@ function Dashboard() {
     <div className='flex h-full'>
       <Navigation />
       <main className='w-full'>
-        <div className='overflow-auto remove-scrollbar h-screen px-5 py-5'>
+        <div className='bg-secondary3 p-5 block md:hidden'>
           <FaBars onClick={() => toggleSidebar()} className='block md:hidden' />
-          <div>Dashboard</div>
+        </div>
+        <div className='overflow-auto remove-scrollbar h-screen px-5 py-5'>
+          <div>
+            <h2 className='text-4xl lg:text-6xl font-bold text-primary uppercase'>Dashboard</h2>
+            <div className='mt-10 flex justify-start gap-10'>
+              <div className='bg-secondary text-white w-60 p-2 rounded-md'>
+                <h6 className='text-center uppercase font-medium text-lg'>Total Penjualan Pakaian</h6>
+                <div className='flex justify-center gap-3 items-center'>
+                  <MdOutlineSell className='my-2 w-7 h-7 fill-secondary3'/>
+                  <p className='text-xl font-medium'>231</p> 
+                </div>
+              </div>
+              <div className='bg-secondary text-white w-60 p-2 rounded-md'>
+                <h6 className='text-center uppercase font-medium text-lg'>Total Penjualan Pakaian</h6>
+                <div className='flex justify-center gap-3 items-center'>
+                  <MdOutlineSell className='my-2 w-7 h-7 fill-secondary3'/>
+                  <p className='text-xl font-medium'>231</p> 
+                </div>
+              </div>
+              <div className='bg-secondary text-white w-60 p-2 rounded-md'>
+                <h6 className='text-center uppercase font-medium text-lg'>Total Penjualan Pakaian</h6>
+                <div className='flex justify-center gap-3 items-center'>
+                  <MdOutlineSell className='my-2 w-7 h-7 fill-secondary3'/>
+                  <p className='text-xl font-medium'>231</p> 
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </main>

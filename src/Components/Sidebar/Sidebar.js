@@ -5,6 +5,7 @@ import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { MdDashboard } from "react-icons/md"
 import { GiRolledCloth } from "react-icons/gi"
 import { RiTShirt2Fill } from "react-icons/ri"
+import { GiSewingMachine } from "react-icons/gi"
 import { HiBookOpen, HiOutlineLogout, HiBars3CenterLeft } from "react-icons/hi"
 
 
@@ -38,11 +39,18 @@ function Navigation() {
               <p className='text-sm'>Kelola Katalog</p>
             </MenuItem>
             <MenuItem 
-              component={<Link to="/kelola-pesanan" />}
+              component={<Link to="/kelola-pesanan-pakaian" />}
               icon={<HiBookOpen color='#3F4E4F'/>} 
               className="text-xl"
             >
-              <p className='text-sm'>Kelola Pesanan</p>
+              <p className='text-sm'>Kelola Pesanan Pakaian</p>
+            </MenuItem>
+            <MenuItem 
+              component={<Link to="/kelola-pesanan-jahit" />}
+              icon={<GiSewingMachine color='#3F4E4F'/>} 
+              className="text-xl"
+            >
+              <p className='text-sm'>Kelola Pesanan Jahit</p>
             </MenuItem>
           </Menu>
           <Menu className='bottom-5'>
