@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom"
 
 import Navbar from '../../Components/Navbar/Navbar'
 import Navigation from '../../Components/Sidebar/Sidebar';
+import LoadingSvg from '../../Components/Loading/LoadingSvg';
 import { FaBars } from "react-icons/fa"
 
 import { GetPesananPakaian } from '../../Graphql/query';
@@ -35,7 +36,7 @@ function KelolaPesanan() {
   console.log(data) 
 
   const handleDetail = (pesanan) => {
-    navigate(`/kelola-pesanan/${pesanan.id}`, {
+    navigate(`/kelola-pesanan-pakaian/${pesanan.id}`, {
       state: {
           id: pesanan.id,
           created_at: pesanan.created_at,
@@ -46,10 +47,13 @@ function KelolaPesanan() {
           total_harga: pesanan.total_harga,
           user: pesanan.user,
           user_id: pesanan.user_id,
-          chats: pesanan.chats
+          chats: pesanan.chats,
+          opsi_pengiriman: pesanan.opsi_pengiriman,
+          kode_pemesanan: pesanan.kode_pemesanan,
       }
-  })
+    })
   }
+
 
 
   return (
@@ -67,6 +71,7 @@ function KelolaPesanan() {
                 <button onClick={openModalInsert} className='bg-secondary px-10 py-3 rounded-md text-white font-medium border border-secondary hover:bg-white hover:text-secondary duration-200'>Tambah Kain</button>
               </div> */}
 
+              {loading ? <LoadingSvg/> :
               <table className='table-fixed w-full mt-10 '>
                 <thead>
                   <tr className='table-fixed'>
@@ -81,10 +86,10 @@ function KelolaPesanan() {
                 <tbody>
                   {data?.sekargaluhetnic_pesanan_pakaian?.map((pesanan) => 
                   <tr className='py-2 border-b'>
-                    <th className='py-2'>No</th>
-                    <td className='px-5 py-1'>Kode Pemesanan</td>
-                    <td className='px-5 py-1'>{pesanan.pesanans.length}</td>
-                    <td className='px-5 py-1'>{pesanan.status}</td>
+                    <th className='py-2'>{pesanan.id}</th>
+                    <td className='px-5 py-1 text-center'>Kode Pemesanan</td>
+                    <td className='px-5 py-1 text-center'>{pesanan.pesanans.length}</td>
+                    <td className='px-5 py-1 text-center'>{pesanan.status}</td>
                     <th className='px-5 py-1 font-normal'>Rp{pesanan.total_harga?.toLocaleString()}</th>
                     <th className='px-5 py-1'>
                       <button onClick={() => handleDetail(pesanan)} className='bg-secondary text-white px-2 py-1 rounded-md text-sm border border-secondary font-light mr-2' >Detail
@@ -94,6 +99,7 @@ function KelolaPesanan() {
                   )}
                 </tbody>
               </table>
+              }
             </div>
           </div>
 

@@ -50,7 +50,7 @@ export default function Login() {
       // console.log("data", data?.sekargaluhetnic_user[0]?.id);
       // setLoginSuccess("Login Berhasil, Harap Tunggu....")
       Cookies.set("token", v4());
-      Cookies.set("okogaye", data?.sekargaluhetnic_admin[0]?.id);
+      Cookies.set("okogaye", data?.sekargaluhetnic_admin[0]?.user_id);
       return navigate ("/")
     } else {
       setErrorLogin("Email atau Password Salah")

@@ -8,21 +8,26 @@ import KelolaKatalog from './Pages/KelolaKatalog/KelolaKatalog';
 import KelolaPesanan from './Pages/KelolaPesanan/KelolaPesanan';
 import DetailKelolaPesanan from './Pages/KelolaPesanan/DetailKelolaPesanan';
 import KelolaPesananJahit from './Pages/KelolaPesananJahit/KelolaPesananJahit';
+import DetailKelolaPesananJahit from './Pages/KelolaPesananJahit/DetailKelolaPesananJahit';
 import Login from './Pages/Login/Login';
+
+import { PrivateRoute } from "./PrivateRoute";
 
 function App() {
   return (
     <Router>
 
       <Routes>
-        <Route exact path='/' element={<Dashboard/>}/>
-        <Route exact path='/kelola-kain' element={<KelolaKain/>}/>
-        <Route exact path='/kelola-katalog' element={<KelolaKatalog/>}/>
-        <Route exact path='/kelola-pesanan-pakaian' element={<KelolaPesanan/>}/>
-        <Route exact path='/kelola-pesanan-pakaian/:id' element={<DetailKelolaPesanan/>}/>
-        <Route exact path='/kelola-pesanan-jahit' element={<KelolaPesananJahit/>}/>
         <Route exact path='/login' element={<Login/>}/>
-        
+        <Route exact path='/' element={<PrivateRoute/>}>
+          <Route exact path='/' element={<Dashboard/>}/>
+          <Route exact path='/kelola-kain' element={<KelolaKain/>}/>
+          <Route exact path='/kelola-katalog' element={<KelolaKatalog/>}/>
+          <Route exact path='/kelola-pesanan-pakaian' element={<KelolaPesanan/>}/>
+          <Route exact path='/kelola-pesanan-pakaian/:id' element={<DetailKelolaPesanan/>}/>
+          <Route exact path='/kelola-pesanan-jahit' element={<KelolaPesananJahit/>}/>
+          <Route exact path='/kelola-pesanan-jahit/:id' element={<DetailKelolaPesananJahit/>}/>
+        </Route>
       </Routes> 
     </Router>
   );

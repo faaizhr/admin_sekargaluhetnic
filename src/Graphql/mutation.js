@@ -68,6 +68,10 @@ mutation MyMutation($object: sekargaluhetnic_katalog_insert_input = {}) {
 //     "harga": 234000,
 //     "gender": "Pria",
 //     "foto": "sdasdasdasdas"
+//     "ukuran": "all size",
+//     "kode_produk": "",
+//     "material": "",
+//     "stok": 1
 //   }
 // }
 
@@ -118,6 +122,17 @@ mutation MyMutation($_eq: Int!, $status: String = "") {
 //   "status": "Dibatalkan"
 // }
 
+export const CancelPesananJahit = gql `
+mutation MyMutation($_eq: Int!) {
+  update_sekargaluhetnic_pesanan_jahit(where: {id: {_eq: $_eq}}, _set: {status: "Dibatalkan"}) {
+    affected_rows
+  }
+}
+`
+// {
+//   "_eq": 32,
+// }
+
 
 export const InsertChat = gql `
 mutation MyMutation($object: sekargaluhetnic_chat_insert_input = {}) {
@@ -131,5 +146,20 @@ mutation MyMutation($object: sekargaluhetnic_chat_insert_input = {}) {
 //     "pesanan_pakaian_id": 8,
 //     "user_id": 3,
 //     "message": "balas chat"
+//   }
+// }
+
+export const InsertChatJahit = gql `
+mutation MyMutation($object: sekargaluhetnic_chat_jahit_insert_input = {}) {
+  insert_sekargaluhetnic_chat_jahit_one(object: $object) {
+    id
+  }
+}
+`
+// {
+//   "object": {
+//     "pesanan_jahit_id": 30,
+//     "user_id": "2",
+//     "message": "halo lagi"
 //   }
 // }

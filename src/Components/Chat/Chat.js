@@ -22,9 +22,9 @@ subscription MySubscription($_eq: Int!) {
 
 export const Chat = ({id, popUp, chatModal}) => {
 
-  console.log("cek item", id)
-  console.log("cek popup", popUp)
-  console.log("cek chatmodal", chatModal)
+  // console.log("cek item", id)
+  // console.log("cek popup", popUp)
+  // console.log("cek chatmodal", chatModal)
 
   const LoggedIn = Cookies.get("token")
 
@@ -33,7 +33,7 @@ export const Chat = ({id, popUp, chatModal}) => {
   const handleChangeMessage = (e) => {
     setMessage(e.target.value)
   }
-  console.log("cek message", message)
+  // console.log("cek message", message)
   
   // const location = useLocation()
   // const { id } = location.state
@@ -41,7 +41,7 @@ export const Chat = ({id, popUp, chatModal}) => {
   // const navigate = useNavigate()
 
   const {data: dataChat, loading: loadingChat, error:errorChat} = useSubscription(SubscriptionChat, {variables: { _eq: id}})
-  console.log("cek data chat", dataChat)
+  // console.log("cek data chat", dataChat)
 
   const [insertChat, {loading: loadingInsertChat}] = useMutation(InsertChat)
 
@@ -80,7 +80,7 @@ export const Chat = ({id, popUp, chatModal}) => {
               </div>
               <div className="h-96">
                 {dataChat?.sekargaluhetnic_chat?.map((el) => 
-                  <div className={el.user_id == Cookies.get("okogaye") ? "bg-secondary text-white px-3 py-2 w-3/4 flex justify-end mb-1 ml-auto mr-0 rounded-tl-xl rounded-bl-xl rounded-br-xl" : "bg-secondary3 text-primary px-3 py-2 w-3/4 flex justify-start mb-1 ml-0 mr-auto rounded-tr-xl rounded-bl-xl rounded-br-xl"}>
+                  <div className={el.user_id != Cookies.get("okogaye") ? "bg-secondary text-white px-3 py-2 w-3/4 flex justify-end mb-1 ml-auto mr-0 rounded-tl-xl rounded-bl-xl rounded-br-xl" : "bg-secondary3 text-primary px-3 py-2 w-3/4 flex justify-start mb-1 ml-0 mr-auto rounded-tr-xl rounded-bl-xl rounded-br-xl"}>
                     <p className="m-0  font-light text-sm">{el.message}</p>
                   </div>
                 )}

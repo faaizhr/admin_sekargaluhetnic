@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom"
 
 import Navbar from '../../Components/Navbar/Navbar'
 import Navigation from '../../Components/Sidebar/Sidebar';
+import LoadingSvg from '../../Components/Loading/LoadingSvg';
 import { FaBars } from "react-icons/fa"
 
 import { GetPesananJahit } from '../../Graphql/query';
@@ -35,6 +36,37 @@ export default function KelolaPesananJahit() {
   const {data, loading, error} = useQuery(GetPesananJahit)
   console.log("cek data", data)
 
+  const handleDetail = (pesanan) => {
+    navigate(`/kelola-pesanan-jahit/${pesanan.id}`, {
+      state: {
+          id: pesanan.id,
+          created_at: pesanan.created_at,
+          updated_at: pesanan.updated_at,
+          ongkir: pesanan.ongkir,
+          opsi_pengiriman: pesanan.opsi_pengiriman,
+          jahit_session: pesanan.jahit_session,
+          foto_desains: pesanan.foto_desains,
+          status: pesanan.status,
+          jenis_pakaian: pesanan.jenis_pakaian,
+          kain: pesanan.kain,
+          deskripsi: pesanan.deskripsi,
+          total_biaya: pesanan.total_biaya,
+          user: pesanan.user,
+          user_id: pesanan.user_id,
+          kode_pemesanan: pesanan.kode_pemesanan,
+          panjang_baju: pesanan.panjang_baju,
+          panjang_lengan: pesanan.panjang_lengan,
+          lebar_bahu: pesanan.lebar_bahu,
+          lingkar_dada: pesanan.lingkar_dada,
+          lingkar_kerung_lengan: pesanan.lingkar_kerung_lengan,
+          lingkar_leher: pesanan.lingkar_leher,
+          lingkar_pergelangan_tangan: pesanan.lingkar_pergelangan_tangan,
+          lingkar_pinggang: pesanan.lingkar_pinggang,
+          lingkar_pinggul: pesanan.lingkar_pinggul,
+      }
+    })
+  }
+
   return (
     <div className='flex h-full'>
       <Navigation />
@@ -50,6 +82,7 @@ export default function KelolaPesananJahit() {
                 <button onClick={openModalInsert} className='bg-secondary px-10 py-3 rounded-md text-white font-medium border border-secondary hover:bg-white hover:text-secondary duration-200'>Tambah Kain</button>
               </div> */}
 
+              {loading ? <LoadingSvg/> : 
               <table className='table-fixed w-full mt-10 '>
                 <thead>
                   <tr className='table-fixed'>
@@ -65,18 +98,19 @@ export default function KelolaPesananJahit() {
                   {data?.sekargaluhetnic_pesanan_jahit?.map((jahit) => 
                   <tr className='py-2 border-b'>
                     <th className='py-2'>No</th>
-                    <td className='px-5 py-1'>Kode Pemesanan</td>
-                    <td className='px-5 py-1'>{jahit.jenis_pakaian}</td>
-                    <td className='px-5 py-1'>jahit.status</td>
-                    <th className='px-5 py-1 font-normal'>Harga</th>
+                    <td className='px-5 py-1 text-center'>Kode Pemesanan</td>
+                    <td className='px-5 py-1 text-center'>{jahit.jenis_pakaian}</td>
+                    <td className='px-5 py-1 text-center'>{jahit.status}</td>
+                    <th className='px-5 py-1 font-normal'>Rp{jahit.total_biaya.toLocaleString()}</th>
                     <th className='px-5 py-1'>
-                      {/* <button onClick={() => handleDetail(jahit)} className='bg-secondary text-white px-2 py-1 rounded-md text-sm border border-secondary font-light mr-2' >Detail
-                      </button> */}
+                      <button onClick={() => handleDetail(jahit)} className='bg-secondary text-white px-2 py-1 rounded-md text-sm border border-secondary font-light mr-2' >Detail
+                      </button>
                     </th>
                   </tr>
                   )}
                 </tbody>
               </table>
+              }
             </div>
           </div>
 

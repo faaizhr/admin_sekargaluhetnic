@@ -1,17 +1,22 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { gql, useQuery, useMutation, useLazyQuery } from "@apollo/client"
+import { gql, useQuery, useMutation, useLazyQuery, useSubscription } from "@apollo/client"
 import { useProSidebar } from 'react-pro-sidebar';
 import ReactplosiveModal from "reactplosive-modal";
 import Modal from 'react-modal';
 
 import Navbar from '../../Components/Navbar/Navbar'
 import Navigation from '../../Components/Sidebar/Sidebar';
+import LoadingSvg from '../../Components/Loading/LoadingSvg';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { FaBars } from "react-icons/fa"
 import { AiFillCloseCircle } from "react-icons/ai"
 
 import { GetKain } from '../../Graphql/query';
+import { SubscriptionKain } from '../../Graphql/subscription';
 import { GetLazyKain } from '../../Graphql/query';
 import { InsertKain } from '../../Graphql/mutation';
 import { DeleteKain } from '../../Graphql/mutation';
@@ -32,7 +37,7 @@ const customStyles = {
 function KelolaKain() {
 
   const [width, setWidth] = useState(window.innerWidth);
-  const {data, loading, error} = useQuery(GetKain)
+  const {data, loading, error} = useSubscription(SubscriptionKain)
   const [getSelectKain, {data: dataSelect, loading: loadingSelect, error: errorSelect}] = useLazyQuery(GetLazyKain);
 
   // console.log("cek kain", data)
@@ -94,17 +99,24 @@ function KelolaKain() {
         }
       }
     })
+    toast.success("Data berhasil ditambahkan")
+    setIsOpenInsert(false)
+
     // window.location.reload(false);
   }
 
   const handleDeleteKain = (value) => {
-    deleteKain({
-      variables: {
-        _eq: value
-      }
-    })
-    alert("Kain Berhasil Dihapus")
-    window.location.reload(false);
+    if(window.confirm("Apakah Anda yakin ingin menghapus katalog ini?") == true ) {
+      deleteKain({
+        variables: {
+          _eq: value
+        }
+      })
+      toast.success("Data berhasil dihapus")
+      // window.location.reload(false);
+    } else {
+      // window.location.reload(false);
+    }
   }
 
   const [updateStateKain, setUpdateStateKain] = useState({})
@@ -146,12 +158,15 @@ function KelolaKain() {
         }
       }
     })
+    toast.success("Data berhasil diubah")
+    setIsOpenUpdate(false)
   }
   console.log(updateStateKain)
   
 
   return (
     <div className='flex h-full'>
+      <ToastContainer/>
       <Navigation />
       <main className='w-full'>
         <div className='bg-secondary3 p-5 block md:hidden'>
@@ -166,6 +181,7 @@ function KelolaKain() {
                 <button onClick={openModalInsert} className='bg-secondary px-10 py-3 rounded-md text-white font-medium border border-secondary hover:bg-white hover:text-secondary duration-200'>Tambah Kain</button>
               </div>
 
+              {loading ? <LoadingSvg/> :
               <table className='table-fixed w-full mt-10 '>
                 <thead>
                   <tr className='table-fixed'>
@@ -194,6 +210,7 @@ function KelolaKain() {
                   )}
                 </tbody>
               </table>
+              }
             </div>
           </div>
         </div>

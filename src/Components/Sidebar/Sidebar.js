@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
 import { MdDashboard } from "react-icons/md"
@@ -8,8 +8,19 @@ import { RiTShirt2Fill } from "react-icons/ri"
 import { GiSewingMachine } from "react-icons/gi"
 import { HiBookOpen, HiOutlineLogout, HiBars3CenterLeft } from "react-icons/hi"
 
+import Cookies from "js-cookie"
+
 
 function Navigation() {
+
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    Cookies.remove("okogaye")
+    Cookies.remove("token")
+    navigate("/login")
+  }
+
   return (
     <div>
       <Sidebar className='h-screen' breakPoint="md" backgroundColor='#DCD7C9'>
@@ -55,6 +66,7 @@ function Navigation() {
           </Menu>
           <Menu className='bottom-5'>
             <MenuItem 
+            onClick={handleLogout}
               icon={<HiOutlineLogout color='#3F4E4F' />} 
               className="text-xl"
             >

@@ -6,14 +6,12 @@ import { useLocation, useNavigate } from "react-router-dom"
 
 import Navbar from '../../Components/Navbar/Navbar'
 import Navigation from '../../Components/Sidebar/Sidebar';
-import { Chat } from "../../Components/Chat/Chat";
+// import { Chat } from "../../Components/Chat/Chat";
+import ChatJahit from '../../Components/Chat/ChatJahit';
 import { FaBars } from "react-icons/fa"
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import { GetPesananPakaian } from '../../Graphql/query';
-import { CancelPesanan } from '../../Graphql/mutation';
+import { CancelPesananJahit } from '../../Graphql/mutation';
 
 const SubscriptionChat = gql `
 subscription MySubscription($_eq: Int!) {
@@ -26,7 +24,7 @@ subscription MySubscription($_eq: Int!) {
 }
 `;
 
-export default function DetailKelolaPesanan() {
+export default function DetailKelolaPesananJahit() {
 
   const location = useLocation()
   console.log("cek state", location.state)
@@ -61,28 +59,18 @@ export default function DetailKelolaPesanan() {
   const {data: dataChat, loading: loadingChat, error:errorChat} = useSubscription(SubscriptionChat, {variables: { _eq: location.state.id}})
   console.log("data chat", dataChat)
 
-  const [cancelPesanan, {loading: loadingCancelPesanan}] = useMutation(CancelPesanan)
+  const [cancelPesanan, {loading: loadingCancelPesanan}] = useMutation(CancelPesananJahit)
   const handleCancelPesanan = () => {
-    if(window.confirm("Apakah Anda yakin ingin membatalkan pesanan ini?") == true) {
-      cancelPesanan({
-        variables: {
-          _eq: location.state.id,
-          status: "Dibatalkan"
-        }
-      })
-      toast.success("Pesanan berhasil dibatalkan")
-      setTimeout(() => {
-        window.location.reload(false);
-      }, 2000);
-    } else {
-
-    }
+    cancelPesanan({
+      variables: {
+        _eq: location.state.id,
+      }
+    })
   }
 
 
   return (
     <div className='flex h-full'>
-      <ToastContainer/>
       <Navigation />
       <main className='w-full'>
         <div className='bg-secondary3 p-5 block md:hidden'>
@@ -120,23 +108,41 @@ export default function DetailKelolaPesanan() {
                 </div>
               </div>
               <div>
-                <h3 className='font-semibold text-lg text-primary'>Produk yang Dipesan</h3>
+                <h3 className='font-semibold text-lg text-primary'>Informasi Jahit</h3>
                 <div>
-                  <h6 className='font-medium'>Jumlah Produk :  <span className='font-normal'>{location.state.pesanans.length}</span></h6>
-                  <div className='grid gap-5'>
-                    {location.state.pesanans?.map((produk) => 
-                    <div className='py-2 border-b grid grid-cols-3'>
-                      <img className='col-span-1 w-32 h-32 object-cover' src={produk.katalog.foto}></img>
-                      <div className='col-span-2 flex flex-col justify-between'>
-                        <div className=''>
-                          <p>{produk.katalog.nama}</p>
-                          <p className='text-sm'>{produk.katalog.gender}</p>
-                          <p className='font-medium text-gray-500 text-sm'>Kode Produk</p>
-                        </div>
-                        <p className='font-semibold '>Rp{produk.katalog.harga.toLocaleString()}</p>
+                  <div className='mt-5'>
+                    <h6 className='font-medium'>Jenis Pakaian</h6>
+                    <p>{location.state.jenis_pakaian}</p>
+                  </div>
+                  <div className='mt-5'>
+                    <h6 className='font-medium'>Kain</h6>
+                    <p>{location.state.kain}</p>
+                  </div>
+                  <div className='mt-5'>
+                    <h6 className='font-medium'>Ukuran Tubuh</h6>
+                    <p>Lebar Bahu : {location.state.lebar_bahu} cm</p>
+                    <p>Panjang Baju : {location.state.panjang_baju} cm</p>
+                    <p>Panjang Lengan : {location.state.panjang_lengan} cm</p>
+                    <p>Lingkar Dada : {location.state.lingkar_dada} cm</p>
+                    <p>Lingkar Kerung Lengan : {location.state.lingkar_kerung_lengan} cm</p>
+                    <p>Lingkar Leher : {location.state.lingkar_leher} cm</p>
+                    <p>Lingkar Pergelangan Tangan : {location.state.lingkar_pergelangan_tangan} cm</p>
+                    <p>Lingkar Pinggang : {location.state.lingkar_pinggang} cm</p>
+                    <p>Lingkar Pinggul : {location.state.lingkar_pinggul} cm</p>
+                  </div>
+                  <div className='mt-5'>
+                    <h6 className='font-medium'>Unggahan Desain</h6>
+                    <div>
+                      {location.state.foto_desains.map((el) => 
+                      <div>
+                        <img className='w-40 h-40 object-cover' src={el.foto}></img>
                       </div>
+                      )}
                     </div>
-                    )}
+                  </div>
+                  <div className='mt-5'>
+                    <h6 className='font-medium'>Deskripsi Desain</h6>
+                    <div dangerouslySetInnerHTML={{__html: location.state.deskripsi}}></div>
                   </div>
                 </div>
               </div>
@@ -150,7 +156,7 @@ export default function DetailKelolaPesanan() {
                 </div>
                 <div className='mt-2'>
                   <h6 className='font-medium'>Kode Pemesanan</h6>
-                  <p>{location.state.pesanan_session}</p>
+                  <p>{location.state.jahit_session}</p>
                 </div>
                 <div className='mt-2'>
                   <h6 className='font-medium'>Tanggal Pemesanan</h6>
@@ -166,7 +172,7 @@ export default function DetailKelolaPesanan() {
                 </div>
                 <div className='mt-2'>
                   <h6 className='font-medium'>Total Biaya</h6>
-                  <p>Rp{location.state.total_harga.toLocaleString()}</p>
+                  <p>Rp{location.state.total_biaya.toLocaleString()}</p>
                 </div>
                 <div className='mt-5'>
                   <h6 className='font-medium'>Chat dengan pelanggan</h6>
@@ -181,7 +187,7 @@ export default function DetailKelolaPesanan() {
         </div>
         <div className={ chatModal ? 'block': 'hidden' }>
           <div className="w-[400px] fixed bottom-5 right-5 bg-white border shadow px-1 py-2 rounded-md">
-            <Chat id={location.state.id} popUp={popUpModal} chatModal={chatModal}/>
+            <ChatJahit id={location.state.id} popUp={popUpModal} chatModal={chatModal}/>
           </div>
         </div>
       </main>

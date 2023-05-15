@@ -26,15 +26,20 @@ query MyQuery($_eq: Int!) {
 
 export const GetKatalog = gql `
 query MyQuery {
-  sekargaluhetnic_katalog {
+  sekargaluhetnic_katalog(order_by: {id: desc}) {
     deskripsi
     foto
     gender
     harga
     id
     nama
+    material
+    kode_produk
+    stok
+    ukuran
   }
 }
+
 `
 
 export const GetPesananPakaian = gql ` 
@@ -85,20 +90,21 @@ query MyQuery {
       pesanan_pakaian_id
       user_id
     }
+    opsi_pengiriman
+    kode_pemesanan
   }
 }
 `
 
 export const GetPesananJahit = gql `
 query MyQuery($_neq: String = "null") {
-  sekargaluhetnic_pesanan_jahit(where: {jenis_pakaian: {_neq: $_neq}}) {
+  sekargaluhetnic_pesanan_jahit(where: {jenis_pakaian: {_neq: $_neq}}, order_by: {id: desc}) {
     created_at
     id
     jahit_session
     jenis_pakaian
     kain
     panjang_lengan
-    ukuran_leher
     updated_at
     user_id
     user {
@@ -106,11 +112,38 @@ query MyQuery($_neq: String = "null") {
       id
       jenis_kelamin
       name
+      telephone
+      alamats {
+        alamat
+        id
+        kabupaten_kota
+        kecamatan
+        kelurahan
+        kodepos
+        negara
+        provinsi
+      }
     }
     foto_desains {
       foto
       id
     }
+    kode_pemesanan
+    lebar_bahu
+    lingkar_dada
+    lingkar_kerung_lengan
+    lingkar_leher
+    lingkar_pergelangan_tangan
+    lingkar_pinggang
+    lingkar_pinggul
+    ongkir
+    opsi_pengiriman
+    panjang_baju
+    status
+    total_biaya
+    deskripsi
   }
 }
+
+
 `
