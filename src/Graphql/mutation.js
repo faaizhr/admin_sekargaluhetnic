@@ -163,3 +163,27 @@ mutation MyMutation($object: sekargaluhetnic_chat_jahit_insert_input = {}) {
 //     "message": "halo lagi"
 //   }
 // }
+
+export const KonfirmasiPembayaranPesananPakaian = gql ` 
+mutation MyMutation($_eq: Int!, $status: String = "") {
+  update_sekargaluhetnic_pesanan_pakaian(where: {id: {_eq: $_eq}}, _set: {status: $status}) {
+    affected_rows
+  }
+}
+`
+// {
+//   _eq: 2,
+//   status: status
+// }
+
+export const KonfirmasiPembayaranPesananJahit = gql `
+mutation MyMutation($_eq: Int!, $status: String!) {
+  update_sekargaluhetnic_pesanan_jahit(where: {id: {_eq: $_eq}}, _set: {status: $status}) {
+    affected_rows
+  }
+}
+`
+// {
+//   _eq: 2,
+//   status: status
+// }
