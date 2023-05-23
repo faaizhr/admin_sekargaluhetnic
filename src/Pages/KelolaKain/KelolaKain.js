@@ -228,7 +228,8 @@ function KelolaKain() {
               <div className='mt-5'>
                 <div className='mb-5'>
                   <p className='text-primary'>Gambar Kain</p>
-                  <input onChange={handleInputInsertKain} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' placeholder='Gambar Kain'></input>
+                  {/* <input onChange={handleInputInsertKain} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' placeholder='Gambar Kain'></input> */}
+                  <input type='file' className='mt-2 text-sm'></input>
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Nama Kain</p>
@@ -264,7 +265,9 @@ function KelolaKain() {
               <div className='mt-5'>
                 <div className='mb-5'>
                   <p className='text-primary'>Gambar Kain</p>
-                  <input onChange={handleChangeUpdateKain} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' value={updateStateKain.foto} placeholder='Gambar Kain'></input>
+                  {/* <input onChange={handleChangeUpdateKain} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' value={updateStateKain.foto} placeholder='Gambar Kain'></input> */}
+                  <img src={updateStateKain.foto}></img>
+                  <input type='file' className='mt-2 text-sm'></input>
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Nama Kain</p>

@@ -238,7 +238,7 @@ export default function DetailKelolaPesananJahit() {
                 </div>
                 <div className='mt-2'>
                   <h6 className='font-medium'>Kode Pemesanan</h6>
-                  <p>{dataPesanan?.sekargaluhetnic_pesanan_jahit[0].jahit_session}</p>
+                  <p>{dataPesanan?.sekargaluhetnic_pesanan_jahit[0].kode_pemesanan}</p>
                 </div>
                 <div className='mt-2'>
                   <h6 className='font-medium'>Tanggal Pemesanan</h6>

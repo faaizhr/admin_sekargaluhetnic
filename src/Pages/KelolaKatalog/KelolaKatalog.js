@@ -254,7 +254,8 @@ function KelolaKatalog() {
               <div className='mt-5'>
                 <div className='mb-5'>
                   <p className='text-primary'>Gambar Katalog</p>
-                  <input onChange={handleInputInsertKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' placeholder='Gambar Kain'></input>
+                  {/* <input onChange={handleInputInsertKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' placeholder='Gambar Kain'></input> */}
+                  <input type='file' className='mt-2 text-sm'></input>
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Nama</p>
@@ -311,7 +312,9 @@ function KelolaKatalog() {
               <div className='mt-5'>
                 <div className='mb-5'>
                   <p className='text-primary'>Gambar</p>
-                  <input onChange={handleChangeUpdateKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' value={updateStateKatalog.foto} placeholder='Gambar Kain'></input>
+                  {/* <input onChange={handleChangeUpdateKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' value={updateStateKatalog.foto} placeholder='Gambar Kain'></input> */}
+                  <img className='w-32 h-50' src={updateStateKatalog.foto}></img>
+                  <input type='file' className='mt-2 text-sm'></input>
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Nama</p>

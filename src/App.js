@@ -9,6 +9,7 @@ import KelolaPesanan from './Pages/KelolaPesanan/KelolaPesanan';
 import DetailKelolaPesanan from './Pages/KelolaPesanan/DetailKelolaPesanan';
 import KelolaPesananJahit from './Pages/KelolaPesananJahit/KelolaPesananJahit';
 import DetailKelolaPesananJahit from './Pages/KelolaPesananJahit/DetailKelolaPesananJahit';
+import KelolaReturBarang from './Pages/KelolaReturBarang/KelolaReturBarang';
 import Login from './Pages/Login/Login';
 
 import { PrivateRoute } from "./PrivateRoute";
@@ -27,6 +28,7 @@ function App() {
           <Route exact path='/kelola-pesanan-pakaian/:id' element={<DetailKelolaPesanan/>}/>
           <Route exact path='/kelola-pesanan-jahit' element={<KelolaPesananJahit/>}/>
           <Route exact path='/kelola-pesanan-jahit/:id' element={<DetailKelolaPesananJahit/>}/>
+          <Route exact path='/kelola-retur-barang' element={<KelolaReturBarang/>}/>
         </Route>
       </Routes> 
     </Router>

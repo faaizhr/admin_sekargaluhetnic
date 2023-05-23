@@ -187,3 +187,15 @@ mutation MyMutation($_eq: Int!, $status: String!) {
 //   _eq: 2,
 //   status: status
 // }
+
+export const HandleChangeStatusRetur = gql `
+mutation MyMutation($_eq: Int!, $status: String!) {
+  update_sekargaluhetnic_retur_produk(where: {id: {_eq: $_eq}}, _set: {status: $status}) {
+    affected_rows
+  }
+}
+`
+// {
+//   _eq: 2,
+//   status: status
+// }

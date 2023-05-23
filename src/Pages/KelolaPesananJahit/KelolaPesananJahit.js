@@ -97,8 +97,8 @@ export default function KelolaPesananJahit() {
                 <tbody>
                   {data?.sekargaluhetnic_pesanan_jahit?.map((jahit) => 
                   <tr className='py-2 border-b'>
-                    <th className='py-2'>No</th>
-                    <td className='px-5 py-1 text-center'>Kode Pemesanan</td>
+                    <th className='py-2'>{jahit.id}</th>
+                    <td className='px-5 py-1 text-center'>{jahit.kode_pemesanan}</td>
                     <td className='px-5 py-1 text-center'>{jahit.jenis_pakaian}</td>
                     <td className='px-5 py-1 text-center'>{jahit.status}</td>
                     <th className='px-5 py-1 font-normal'>Rp{jahit.total_biaya.toLocaleString()}</th>

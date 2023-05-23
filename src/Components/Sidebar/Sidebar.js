@@ -7,6 +7,7 @@ import { GiRolledCloth } from "react-icons/gi"
 import { RiTShirt2Fill } from "react-icons/ri"
 import { GiSewingMachine } from "react-icons/gi"
 import { HiBookOpen, HiOutlineLogout, HiBars3CenterLeft } from "react-icons/hi"
+import { TbTruckReturn } from "react-icons/tb"
 
 import Cookies from "js-cookie"
 
@@ -23,7 +24,7 @@ function Navigation() {
 
   return (
     <div>
-      <Sidebar className='h-screen' breakPoint="md" backgroundColor='#DCD7C9'>
+      <Sidebar className='h-screen' breakPoint="md" backgroundColor='#DCD7C9' width='290px'>
         <div>
           <h1 className='staatliches tracking-wider uppercase text-center my-5 text-lg lg:text-2xl  text-[#3F4E4F] '>Sekar Galuh Etnic</h1>
         </div>
@@ -62,6 +63,13 @@ function Navigation() {
               className="text-xl"
             >
               <p className='text-sm'>Kelola Pesanan Jahit</p>
+            </MenuItem>
+            <MenuItem 
+              component={<Link to="/kelola-retur-barang" />}
+              icon={<TbTruckReturn color='#3F4E4F'/>} 
+              className="text-xl"
+            >
+              <p className='text-sm'>Kelola Kelola Retur Barang</p>
             </MenuItem>
           </Menu>
           <Menu className='bottom-5'>

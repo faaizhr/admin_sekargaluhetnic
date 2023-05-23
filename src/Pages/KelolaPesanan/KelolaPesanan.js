@@ -87,7 +87,7 @@ function KelolaPesanan() {
                   {data?.sekargaluhetnic_pesanan_pakaian?.map((pesanan) => 
                   <tr className='py-2 border-b'>
                     <th className='py-2'>{pesanan.id}</th>
-                    <td className='px-5 py-1 text-center'>Kode Pemesanan</td>
+                    <td className='px-5 py-1 text-center'>{pesanan.kode_pemesanan}</td>
                     <td className='px-5 py-1 text-center'>{pesanan.pesanans.length}</td>
                     <td className='px-5 py-1 text-center'>{pesanan.status}</td>
                     <th className='px-5 py-1 font-normal'>Rp{pesanan.total_harga?.toLocaleString()}</th>

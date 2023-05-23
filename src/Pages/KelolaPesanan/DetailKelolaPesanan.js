@@ -69,7 +69,7 @@ export default function DetailKelolaPesanan() {
     width > 1024 && collapseSidebar(false);
   },[width]);
 
-  const {data: dataPesanan, loading: loadingPesanan, error: errorPesanan} = useQuery(GetPesananPakaianDetail, {variables: { _eq: location.state.id}})
+  const {data: dataPesanan, loading: loadingPesanan, error: errorPesanan} = useQuery(GetPesananPakaianDetail, {variables: { _eq: location.state?.id}})
   console.log("cek data pesanan", dataPesanan)
 
   const [chatModal, setChatModal] = useState(false);
