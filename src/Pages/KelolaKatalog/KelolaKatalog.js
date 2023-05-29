@@ -3,6 +3,16 @@ import { useEffect, useState } from 'react';
 import { useProSidebar } from 'react-pro-sidebar';
 import { gql, useQuery, useMutation, useLazyQuery, useSubscription } from "@apollo/client"
 import Modal from 'react-modal';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "../../firebase";
+import { v4 } from "uuid";
+import Cookies from "js-cookie";
 
 import Navbar from '../../Components/Navbar/Navbar'
 import Navigation from '../../Components/Sidebar/Sidebar';
@@ -56,7 +66,7 @@ function KelolaKatalog() {
     foto: "",
     nama: "", 
     deskripsi: "",
-    harga: "",
+    harga: 0,
     gender: "",
     ukuran: "",
     kode_produk: "",
@@ -75,6 +85,57 @@ function KelolaKatalog() {
   function closeModalInsert() {
     setIsOpenInsert(false);
   }
+
+  // UPLOAD IMAGE ===================================
+
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUrls, setImageUrls] = useState([]);
+
+  const imagesListRef = ref(storage, `Katalog/`);
+  const uploadFile = () => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `Katalog/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrls((prev) => [...prev, url]);
+      });
+    });
+  };
+
+  // useEffect(() => {
+  //   listAll(imagesListRef).then((response) => {
+  //     response.items.forEach((item) => {
+  //       getDownloadURL(item).then((url) => {
+  //         setImageUrls((prev) => [url]);
+  //       });
+  //     });
+  //   });
+
+  // }, [imageUrls]);
+
+  
+  // setTotalBiaya(hargaKain + hargaJenisPakaian)
+  console.log("cek url", imageUrls )
+  const zero = () => {
+    setImageUrls([])
+  }
+
+  // ==================================================
+  // IMAGE PREVIEW ====================================
+
+  const getImagePreview = (event) => 
+  {
+    var image=URL.createObjectURL(event.target.files[0]);
+    var imagediv= document.getElementById('preview');
+    var newimg=document.createElement('img');
+    imagediv.innerHTML='';
+    newimg.src=image;
+    // newimg.width="150";
+    imagediv.appendChild(newimg);
+  }
+
+  // ==================================================
+
   const handleInputInsertKatalog = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -87,23 +148,28 @@ function KelolaKatalog() {
   console.log("cek katalog", katalog)
 
   const handleInsertKatalog = () => {
-    insertKatalog({
-      variables: {
-        object: {
-          nama: katalog.nama,
-          foto: katalog.foto,
-          harga: katalog.harga,
-          deskripsi: katalog.deskripsi,
-          gender: katalog.gender,
-          ukuran: katalog.ukuran,
-          kode_produk: katalog.kode_produk,
-          material: katalog.material,
-          stok: katalog.stok,
+
+    setTimeout(() => {
+      insertKatalog({
+        variables: {
+          object: {
+            nama: katalog.nama,
+            foto: imageUrls[0],
+            harga: katalog.harga,
+            deskripsi: katalog.deskripsi,
+            gender: katalog.gender,
+            ukuran: katalog.ukuran,
+            kode_produk: katalog.kode_produk,
+            material: katalog.material,
+            stok: katalog.stok,
+          }
         }
-      }
-    })
-    toast.success("Data berhasil ditambahkan")
-    setIsOpenInsert(false)
+      })
+      toast.success("Data berhasil ditambahkan")
+      setIsOpenInsert(false)
+    }, 1500);
+
+    setImageUrls([])
     // window.location.reload(false);
   }
 
@@ -221,9 +287,9 @@ function KelolaKatalog() {
                         <tr className='py-2 border-b'>
                           {/* <div className='flex justify-center'>{loading ? <LoadingSvg/> : ""}</div> */}
                           <th className='py-2'><img className='w-32 h-32 object-cover' src={katalog.foto}></img></th>
-                          <td className='px-5 py-1'>Kode Produk</td>
+                          <td className='px-5 py-1'>{katalog.kode_produk}</td>
                           <td className='px-5 py-1'>{katalog.nama}</td>
-                          <td className='px-5 py-1'>{katalog.deskripsi}</td>
+                          <td className='px-5 py-1'>{katalog.deskripsi.substring(0, 50)} . . .</td>
                           <th className='px-5 py-1 font-normal'>Rp{katalog.harga.toLocaleString()}</th>
                           <th className='px-5 py-1'>
                             <button className='bg-secondary2 text-white px-2 py-1 rounded-md text-sm border border-secondary2 font-light mr-2' onClick={() => {
@@ -255,7 +321,26 @@ function KelolaKatalog() {
                 <div className='mb-5'>
                   <p className='text-primary'>Gambar Katalog</p>
                   {/* <input onChange={handleInputInsertKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' placeholder='Gambar Kain'></input> */}
-                  <input type='file' className='mt-2 text-sm'></input>
+                  <input 
+                    type='file' 
+                    className='mt-2 text-sm'
+                    id='upload_file'
+                    onChange={(event) => {
+                      getImagePreview(event);
+                      setImageUpload(event.target.files[0]);
+                    }}
+                  >
+                  </input>
+                  <div id="preview" className="border rounded-md p-3 flex justify-start flex-wrap gap-5 mt-2"></div>
+                  <div className='flex justify-end'>
+                    <button onClick={uploadFile} className='bg-secondary2 border border-secondary2 text-white px-5 py-1 rounded-md hover:bg-white hover:text-secondary2 duration-200 text-sm mt-2'>Unggah Gambar</button>
+                  </div>
+                  <h6 className="font-semibold text-lg text-primary mt-10">Foto yang sudah terunggah</h6>
+                  <div className="border rounded-md p-3 flex justify-start flex-wrap gap-5">
+                    {imageUrls.map((url) => {
+                      return <img className="w-40 h-40 object-cover" src={url} />;
+                    })}
+                  </div>
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Nama</p>
@@ -357,7 +442,7 @@ function KelolaKatalog() {
           </div>
         </Modal>
 
-
+        {/* DELETE MODAL */}
         <Modal
           isOpen={modalIsOpenDelete}
           onRequestClose={closeModalDelete}

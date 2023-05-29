@@ -4,6 +4,15 @@ import { gql, useQuery, useMutation, useLazyQuery, useSubscription } from "@apol
 import { useProSidebar } from 'react-pro-sidebar';
 import ReactplosiveModal from "reactplosive-modal";
 import Modal from 'react-modal';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "../../firebase";
+import { v4 } from "uuid";
 
 import Navbar from '../../Components/Navbar/Navbar'
 import Navigation from '../../Components/Sidebar/Sidebar';
@@ -88,12 +97,62 @@ function KelolaKain() {
     });
   }
 
+   // UPLOAD IMAGE ===================================
+
+   const [imageUpload, setImageUpload] = useState(null);
+   const [imageUrls, setImageUrls] = useState([]);
+ 
+   const imagesListRef = ref(storage, `Kain/`);
+   const uploadFile = () => {
+     if (imageUpload == null) return;
+     const imageRef = ref(storage, `Kain/${imageUpload.name + v4()}`);
+     uploadBytes(imageRef, imageUpload).then((snapshot) => {
+       getDownloadURL(snapshot.ref).then((url) => {
+         setImageUrls((prev) => [...prev, url]);
+       });
+     });
+   };
+ 
+   // useEffect(() => {
+   //   listAll(imagesListRef).then((response) => {
+   //     response.items.forEach((item) => {
+   //       getDownloadURL(item).then((url) => {
+   //         setImageUrls((prev) => [url]);
+   //       });
+   //     });
+   //   });
+ 
+   // }, [imageUrls]);
+ 
+   
+   // setTotalBiaya(hargaKain + hargaJenisPakaian)
+   console.log("cek url", imageUrls )
+   const zero = () => {
+     setImageUrls([])
+   }
+ 
+   // ==================================================
+   // IMAGE PREVIEW ====================================
+ 
+   const getImagePreview = (event) => 
+   {
+     var image=URL.createObjectURL(event.target.files[0]);
+     var imagediv= document.getElementById('preview');
+     var newimg=document.createElement('img');
+     imagediv.innerHTML='';
+     newimg.src=image;
+     // newimg.width="150";
+     imagediv.appendChild(newimg);
+   }
+ 
+   // ==================================================
+
   const handleInsertKain = () => {
     insertKain({
       variables: {
         object: {
           nama: kain.nama,
-          foto: kain.foto,
+          foto: imageUrls[0],
           harga: kain.harga,
           deskripsi: kain.deskripsi
         }
@@ -101,6 +160,7 @@ function KelolaKain() {
     })
     toast.success("Data berhasil ditambahkan")
     setIsOpenInsert(false)
+    setImageUrls([])
 
     // window.location.reload(false);
   }
@@ -229,7 +289,26 @@ function KelolaKain() {
                 <div className='mb-5'>
                   <p className='text-primary'>Gambar Kain</p>
                   {/* <input onChange={handleInputInsertKain} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' placeholder='Gambar Kain'></input> */}
-                  <input type='file' className='mt-2 text-sm'></input>
+                  <input 
+                    type='file' 
+                    className='mt-2 text-sm'
+                    id='upload_file'
+                    onChange={(event) => {
+                      getImagePreview(event);
+                      setImageUpload(event.target.files[0]);
+                    }}
+                  >
+                  </input>
+                  <div id="preview" className="border rounded-md p-3 flex justify-start flex-wrap gap-5 mt-2"></div>
+                  <div className='flex justify-end'>
+                    <button onClick={uploadFile} className='bg-secondary2 border border-secondary2 text-white px-5 py-1 rounded-md hover:bg-white hover:text-secondary2 duration-200 text-sm mt-2'>Unggah Gambar</button>
+                  </div>
+                  <h6 className="font-semibold text-lg text-primary mt-10">Foto yang sudah terunggah</h6>
+                  <div className="border rounded-md p-3 flex justify-start flex-wrap gap-5">
+                    {imageUrls.map((url) => {
+                      return <img className="w-40 h-40 object-cover" src={url} />;
+                    })}
+                  </div>
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Nama Kain</p>
