@@ -259,3 +259,71 @@ query MyQuery($_eq: Int!) {
 }
 
 `
+
+export const CountPesananJahit = gql `
+query MyQuery {
+  sekargaluhetnic_pesanan_jahit_aggregate {
+    aggregate {
+      count
+    }
+  }
+}
+`
+
+export const CountPesananPakaian = gql `
+query MyQuery {
+  sekargaluhetnic_pesanan_pakaian_aggregate {
+    aggregate {
+      count
+    }
+  }
+}
+`
+
+export const CountMonthPesananPakaian = gql `
+query MyQuery($_like: String = "", $_ilike: String = "") {
+  sekargaluhetnic_pesanan_pakaian_aggregate(where: {created_at: {_like: $_like, _ilike: $_ilike}}) {
+    aggregate {
+      count
+    }
+  }
+}
+`
+// {
+//   "_like" : "%2023%",
+//   "_ilike": "%may%"
+// }
+
+export const CountMonthPesananJahit = gql `
+query MyQuery($_like: String = "", $_ilike: String = "") {
+  sekargaluhetnic_pesanan_jahit_aggregate(where: {created_at: {_like: $_like, _ilike: $_ilike}}) {
+    aggregate {
+      count
+    }
+  }
+}
+`
+
+export const SumPesananPakaian = gql `
+query MyQuery {
+  sekargaluhetnic_pesanan_pakaian_aggregate {
+    aggregate {
+      sum {
+        total_harga
+      }
+    }
+  }
+}
+`
+
+export const SumPesananJahit = gql `
+query MyQuery {
+  sekargaluhetnic_pesanan_jahit_aggregate {
+    aggregate {
+      sum {
+        total_biaya
+      }
+    }
+  }
+}
+`

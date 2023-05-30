@@ -18,9 +18,18 @@ import { faker } from '@faker-js/faker';
 import Navbar from '../../Components/Navbar/Navbar'
 import Navigation from '../../Components/Sidebar/Sidebar';
 
+import { CountPesananJahit, 
+  CountPesananPakaian, 
+  CountMonthPesananPakaian, 
+  CountMonthPesananJahit,
+  SumPesananPakaian,
+  SumPesananJahit 
+} from '../../Graphql/query';
+
 import { HiBookOpen, HiOutlineLogout, HiOutlineBars3CenterLeft } from "react-icons/hi"
 import { FaBars, FaMoneyBillWave } from "react-icons/fa"
 import { MdOutlineSell } from "react-icons/md"
+import { useQuery } from '@apollo/client';
 
 ChartJS.register(
   CategoryScale,
@@ -71,12 +80,13 @@ export const data = {
 
 
 
+
 function Dashboard() {
 
   const { collapseSidebar, toggleSidebar } = useProSidebar();
-
+  
   const [width, setWidth] = useState(window.innerWidth);
-
+  
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -84,14 +94,47 @@ function Dashboard() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [width]);
-
+  
   useEffect(() => {
     width < 1024 && collapseSidebar(true);
     width > 1024 && collapseSidebar(false);
   },[width]);
 
-  console.log("dek data")
+  const date = Date()
+  const year = "%"+date.substring(11, 15)+"%"
+  const month = "%"+date.substring(4, 7)+"%"
+  // console.log("cek tahun", year)
+  // console.log("cek bulan", month)
   
+  
+
+  const {data: dataPakaian, loading: loadingPakaian, error: errorPakaian} = useQuery(CountPesananPakaian)
+  const {data: dataJahit, loading: loadingJahit, error: errorJahit} = useQuery(CountPesananJahit)
+
+  const {data: dataCountPakaian, loading: loadingCountPakaian, error: errorCountPakaian} = useQuery(CountMonthPesananPakaian, { variables: { 
+    _like : year,
+    _ilike : month
+  }})
+
+  const {data: dataCountJahit, loading: loadingCountJahit, error: errorCountJahit} = useQuery(CountMonthPesananJahit, { variables : {
+    _like : year,
+    _ilike : month
+  }})
+
+  const {data: dataSumPakaian, loading: loadingSumPakaian, error: errorSumPakaian} = useQuery(SumPesananPakaian)
+  const {data: dataSumJahit, loading: loadingSumJahit, error: errorSumJahit} = useQuery(SumPesananJahit)
+  
+  console.log("cek sum", dataSumPakaian)
+
+  const totalPenjualan = dataPakaian?.sekargaluhetnic_pesanan_pakaian_aggregate.aggregate.count + dataJahit?.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.count
+
+  const penjualanBulanan = dataCountPakaian?.sekargaluhetnic_pesanan_pakaian_aggregate.aggregate.count + dataCountJahit?.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.count
+
+  const totalPendapatan = dataSumPakaian?.sekargaluhetnic_pesanan_pakaian_aggregate.aggregate.sum.total_harga + dataSumJahit?.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.sum.total_biaya
+  
+  console.log("total penjualan", totalPenjualan)
+  console.log("penjualan bulanan", penjualanBulanan)
+  console.log("total pendapatan", totalPendapatan)
 
   return (
     <div className='flex h-full'>
@@ -111,21 +154,21 @@ function Dashboard() {
                 <h6 className='font-light text-xl uppercase'>Total Penjualan</h6>
                 <div className='flex justify-start gap-2 items-center'>
                   <MdOutlineSell className='my-2 w-5 h-5 fill-white'/>
-                  <p className='text-lg tracking-wider font-light'>86 Transaksi</p> 
+                  <p className='text-lg tracking-wider font-light'>{totalPenjualan} Transaksi</p> 
                 </div>
               </div>
               <div className='bg-[#9F958C] text-white w-full h-36 px-5 py-3 rounded-2xl'>
                 <h6 className='font-light text-xl uppercase'>Penjualan Bulan Ini</h6>
                 <div className='flex justify-start gap-2 items-center'>
                   <MdOutlineSell className='my-2 w-5 h-5 fill-white'/>
-                  <p className='text-lg tracking-wider font-light'>8 Transaksi</p> 
+                  <p className='text-lg tracking-wider font-light'>{penjualanBulanan} Transaksi</p> 
                 </div>
               </div>
               <div className='bg-[#DAD7CE] text-white w-full h-36 px-5 py-3 rounded-2xl'>
                 <h6 className='font-light text-xl uppercase'>Total Pendapatan</h6>
                 <div className='flex justify-start gap-2 items-center'>
                   <FaMoneyBillWave className='my-2 w-5 h-5 fill-white'/>
-                  <p className='text-lg tracking-wider font-light'>Rp15,380,000</p> 
+                  <p className='text-lg tracking-wider font-light'>Rp{totalPendapatan.toLocaleString()}</p> 
                 </div>
               </div>
              

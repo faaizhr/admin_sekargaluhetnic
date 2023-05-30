@@ -136,6 +136,26 @@ function KelolaKatalog() {
 
   // ==================================================
 
+  // AUTOMASI KODE PRODUK =============================
+
+  const {data: countData} =useQuery(GetKatalog)
+  console.log("cek count data", countData?.sekargaluhetnic_katalog.length)
+
+  const [kodeProduk, setKodeProduk] = useState("KTLG")
+
+  useEffect(() => {
+    if(katalog.gender == "Wanita") {
+      setKodeProduk(`KTLG/PR/${countData.sekargaluhetnic_katalog.length + 1}`)
+    } else if(katalog.gender == "Pria") {
+      setKodeProduk(`KTLG/LK/${countData.sekargaluhetnic_katalog.length + 1}`)
+    }
+  }, [katalog.gender])
+  
+  console.log("cek kode produk", kodeProduk)
+  console.log("cek katalog gender", katalog.gender)
+
+  // ==================================================
+
   const handleInputInsertKatalog = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -159,7 +179,7 @@ function KelolaKatalog() {
             deskripsi: katalog.deskripsi,
             gender: katalog.gender,
             ukuran: katalog.ukuran,
-            kode_produk: katalog.kode_produk,
+            kode_produk: kodeProduk,
             material: katalog.material,
             stok: katalog.stok,
           }
@@ -251,6 +271,8 @@ function KelolaKatalog() {
     console.log("loading", loading)
 
   }, [loading])
+
+
   
 
   return (
@@ -356,7 +378,11 @@ function KelolaKatalog() {
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Gender</p>
-                  <input onChange={handleInputInsertKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='gender' placeholder='Gender'></input>
+                  <select name='gender' className='text-sm w-full p-1 border-b focus:outline-none focus:border-primary' onChange={handleInputInsertKatalog}>
+                    <option value="Wanita">Wanita</option>
+                    <option selected="selected" value="Pria">Pria</option>
+                  </select>
+                  {/* <input onChange={handleInputInsertKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='gender' placeholder='Gender'></input> */}
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Ukuran</p>
@@ -364,7 +390,7 @@ function KelolaKatalog() {
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Kode Produk</p>
-                  <input onChange={handleInputInsertKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='kode_produk' placeholder='Kode Produk'></input>
+                  <input onChange={handleInputInsertKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='kode_produk' disabled value={kodeProduk}></input>
                 </div>
                 <div className='mb-5'>
                   <p className='text-primary'>Material</p>

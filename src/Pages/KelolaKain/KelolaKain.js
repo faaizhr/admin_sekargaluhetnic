@@ -34,12 +34,17 @@ import Cookies from 'js-cookie';
 
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    // top: '50%',
+    // left: '50%',
+    // right: 'auto',
+    // bottom: 'auto',
+    // marginRight: '-50%',
+    // transform: 'translate(-50%, -50%)',
+
+    width: '600px',
+    height: '600px',
+    overflowX: 'scroll',
+    margin: '50px auto 50px',
   },
 };
 
@@ -257,7 +262,7 @@ function KelolaKain() {
                   <tr className='py-2 border-b'>
                     <th className='py-2'><img className='w-32 h-32 object-cover' src={kain.foto}></img></th>
                     <td className='px-5 py-1'>{kain.nama}</td>
-                    <td className='px-5 py-1'>{kain.deskripsi}</td>
+                    <td className='px-5 py-1'>{kain.deskripsi.substring(0, 50)} . . .</td>
                     <th className='px-5 py-1 font-normal'>Rp{kain.harga.toLocaleString()}</th>
                     <th className='px-5 py-1'>
                       <button className='bg-secondary2 text-white px-2 py-1 rounded-md text-sm border border-secondary2 font-light mr-2' onClick={() => {
@@ -281,7 +286,7 @@ function KelolaKain() {
           onRequestClose={closeModalInsert}
           style={customStyles}
         >
-          <div className='w-96'>
+          <div className='w-full'>
             <AiFillCloseCircle className='w-7 h-7 fill-secondary hover:fill-red-700 duration-200 cursor-pointer float-right' onClick={closeModalInsert}></AiFillCloseCircle>
             <div>
               <h6 className='font-semibold text-lg'>Tambah Kain</h6>
@@ -299,7 +304,7 @@ function KelolaKain() {
                     }}
                   >
                   </input>
-                  <div id="preview" className="border rounded-md p-3 flex justify-start flex-wrap gap-5 mt-2"></div>
+                  <div id="preview" className="border rounded-md w-40 h-40 object-cover p-3 flex justify-start flex-wrap gap-5 mt-2"></div>
                   <div className='flex justify-end'>
                     <button onClick={uploadFile} className='bg-secondary2 border border-secondary2 text-white px-5 py-1 rounded-md hover:bg-white hover:text-secondary2 duration-200 text-sm mt-2'>Unggah Gambar</button>
                   </div>
@@ -337,7 +342,7 @@ function KelolaKain() {
           onRequestClose={closeModalUpdate}
           style={customStyles}
         >
-          <div className='w-96'>
+          <div className='w-full'>
             <AiFillCloseCircle className='w-7 h-7 fill-secondary hover:fill-red-700 duration-200 cursor-pointer float-right' onClick={closeModalUpdate}></AiFillCloseCircle>
             <div>
               <h6 className='font-semibold text-lg'>Update Kain</h6>
@@ -345,7 +350,7 @@ function KelolaKain() {
                 <div className='mb-5'>
                   <p className='text-primary'>Gambar Kain</p>
                   {/* <input onChange={handleChangeUpdateKain} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' value={updateStateKain.foto} placeholder='Gambar Kain'></input> */}
-                  <img src={updateStateKain.foto}></img>
+                  <img className='w-40 h-40 object-cover' src={updateStateKain.foto}></img>
                   <input type='file' className='mt-2 text-sm'></input>
                 </div>
                 <div className='mb-5'>
