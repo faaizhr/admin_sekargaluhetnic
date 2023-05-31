@@ -23,6 +23,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { FaBars } from "react-icons/fa"
 import { AiFillCloseCircle } from "react-icons/ai"
+import { RxCaretSort } from "react-icons/rx"
 
 import { GetKatalog } from '../../Graphql/query';
 import { SubscriptionKatalog } from '../../Graphql/subscription';
@@ -60,11 +61,13 @@ function KelolaKatalog() {
     width > 1024 && collapseSidebar(false);
   },[width]);
 
-  const {data, loading, error} = useSubscription(SubscriptionKatalog)
+  const {data: dataKatalog, loading, error} = useSubscription(SubscriptionKatalog)
+
+  console.log("cek data katalog", dataKatalog)
 
   const [katalog, setKatalog] = useState({
     foto: "",
-    nama: "", 
+    nama: "",
     deskripsi: "",
     harga: 0,
     gender: "",
@@ -153,6 +156,36 @@ function KelolaKatalog() {
   
   console.log("cek kode produk", kodeProduk)
   console.log("cek katalog gender", katalog.gender)
+
+  // ==================================================
+
+  // SORTING DATA =====================================
+
+  const [data, setData] = useState()
+  useEffect(() => {
+    setData(dataKatalog?.sekargaluhetnic_katalog)
+  
+  }, [dataKatalog])
+  
+  const [order, setOrder] = useState("ASC");
+  const sorting = (col) => {
+    if (order === "ASC") {
+      const sorted = [...data].sort((a,b) => 
+        a[col] > b[col] ? 1 : -1
+      );
+      setData(sorted);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...data].sort((a,b) => 
+        a[col] < b[col] ? 1 : -1
+      );
+      setData(sorted);
+      setOrder("ASC");
+    }
+  };
+
+  console.log(data)
 
   // ==================================================
 
@@ -267,10 +300,12 @@ function KelolaKatalog() {
   }
   console.log(updateStateKatalog)
 
-  useEffect(() => {
-    console.log("loading", loading)
+  // useEffect(() => {
+  //   console.log("loading", loading)
 
-  }, [loading])
+  // }, [loading])
+
+  
 
 
   
@@ -297,15 +332,30 @@ function KelolaKatalog() {
                   <thead>
                     <tr className='table-fixed'>
                       <th className='font-semibold uppercase px-5 py-1 text-secondary'>Foto </th>
-                      <th className='font-semibold uppercase px-5 py-1 text-secondary'>Kode Produk</th>
-                      <th className='font-semibold uppercase px-5 py-1 text-secondary'>Nama</th>
+                      <th className='font-semibold uppercase px-5 py-1 text-secondary'>
+                        <div className='flex justify-center items-center gap-3'>
+                          <p className='font-semibold uppercase text-secondary'>Kode Produk</p>
+                          <RxCaretSort onClick={() => sorting("kode_produk")} className='fill-secondary w-5 h-5 cursor-pointer'/>
+                        </div>
+                      </th>
+                      <th className='font-semibold uppercase px-5 py-1 text-secondary'>
+                        <div className='flex justify-center items-center gap-3'>
+                          <p className='font-semibold uppercase text-secondary'>Nama</p>
+                          <RxCaretSort onClick={() => sorting("nama")} className='fill-secondary w-5 h-5 cursor-pointer'/>
+                        </div>
+                      </th>
                       <th className='font-semibold uppercase px-5 py-1 text-secondary'>Deskripsi</th>
-                      <th className='font-semibold uppercase px-5 py-1 text-secondary'>Harga</th>
+                      <th className='font-semibold uppercase px-5 py-1 text-secondary'>
+                        <div className='flex justify-center items-center gap-3'>
+                          <p className='font-semibold uppercase text-secondary'>Harga</p>
+                          <RxCaretSort onClick={() => sorting("harga")} className='fill-secondary w-5 h-5 cursor-pointer'/>
+                        </div>
+                      </th>
                       <th className='font-semibold uppercase px-5 py-1 text-secondary'>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.sekargaluhetnic_katalog?.map((katalog) => 
+                    {data?.map((katalog) => 
                         <tr className='py-2 border-b'>
                           {/* <div className='flex justify-center'>{loading ? <LoadingSvg/> : ""}</div> */}
                           <th className='py-2'><img className='w-32 h-32 object-cover' src={katalog.foto}></img></th>

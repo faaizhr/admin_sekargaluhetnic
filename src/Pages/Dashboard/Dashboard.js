@@ -41,42 +41,38 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
-    },
-    title: {
-      display: true,
-      text: 'Transaksi Penjualan',
-    },
-  },
-};
+// export const options = {
+//   responsive: true,
+//   plugins: {
+//     legend: {
+//       position: 'top',
+//     },
+//     title: {
+//       display: true,
+//       text: 'Transaksi Penjualan',
+//     },
+//   },
+// };
 
-const labels = ['January', 'February', 'March', 'April', 'May',];
-const fakeData1 = [6, 10, 16, 19, 3]
-const fakeData2 = [9, 3, 5, 10, 5]
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Pesanan Pakaian',
-      // data: labels.map(() => faker.datatype.number({ min: 0, max: 20 })),
-      data: fakeData1,
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Pesanan Jahit',
-      // data: labels.map(() => faker.datatype.number({ min: 0, max: 20 })),
-      data: fakeData2,
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
+// export const data = {
+//   labels,
+//   datasets: [
+//     {
+//       label: 'Pesanan Pakaian',
+//       // data: labels.map(() => faker.datatype.number({ min: 0, max: 20 })),
+//       data: fakeData1,
+//       borderColor: 'rgb(255, 99, 132)',
+//       backgroundColor: 'rgba(255, 99, 132, 0.5)',
+//     },
+//     {
+//       label: 'Pesanan Jahit',
+//       // data: labels.map(() => faker.datatype.number({ min: 0, max: 20 })),
+//       data: fakeData2,
+//       borderColor: 'rgb(53, 162, 235)',
+//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+//     },
+//   ],
+// };
 
 
 
@@ -135,6 +131,118 @@ function Dashboard() {
   console.log("total penjualan", totalPenjualan)
   console.log("penjualan bulanan", penjualanBulanan)
   console.log("total pendapatan", totalPendapatan)
+
+  // GRAFIK ===============================================================
+
+  const {data: dataMonthlyJanPakaian, loading: loadingMonthlyJanPakaian, error: errorMonthlyJanPakaian} = useQuery(CountMonthPesananPakaian, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Jan%"
+  }})
+  const {data: dataMonthlyFebPakaian, loading: loadingMonthlyFebPakaian, error: errorMonthlyFebPakaian} = useQuery(CountMonthPesananPakaian, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Feb%"
+  }})
+  const {data: dataMonthlyMarPakaian, loading: loadingMonthlyMarPakaian, error: errorMonthlyMarPakaian} = useQuery(CountMonthPesananPakaian, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Mar%"
+  }})
+  const {data: dataMonthlyAprPakaian, loading: loadingMonthlyAprPakaian, error: errorMonthlyAprPakaian} = useQuery(CountMonthPesananPakaian, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Apr%"
+  }})
+  const {data: dataMonthlyMayPakaian, loading: loadingMonthlyMayPakaian, error: errorMonthlyMayPakaian} = useQuery(CountMonthPesananPakaian, { variables: { 
+    _like : "%2023%",
+    _ilike : "%May%"
+  }})
+  const {data: dataMonthlyJunPakaian, loading: loadingMonthlyJunPakaian, error: errorMonthlyJunPakaian} = useQuery(CountMonthPesananPakaian, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Jun%"
+  }})
+
+
+
+  const {data: dataMonthlyJanJahit, loading: loadingMonthlyJanJahit, error: errorMonthlyJanJahit} = useQuery(CountMonthPesananJahit, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Jan%"
+  }})
+  const {data: dataMonthlyFebJahit, loading: loadingMonthlyFebJahit, error: errorMonthlyFebJahit} = useQuery(CountMonthPesananJahit, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Feb%"
+  }})
+  const {data: dataMonthlyMarJahit, loading: loadingMonthlyMarJahit, error: errorMonthlyMarJahit} = useQuery(CountMonthPesananJahit, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Mar%"
+  }})
+  const {data: dataMonthlyAprJahit, loading: loadingMonthlyAprJahit, error: errorMonthlyAprJahit} = useQuery(CountMonthPesananJahit, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Apr%"
+  }})
+  const {data: dataMonthlyMayJahit, loading: loadingMonthlyMayJahit, error: errorMonthlyMayJahit} = useQuery(CountMonthPesananJahit, { variables: { 
+    _like : "%2023%",
+    _ilike : "%May%"
+  }})
+  const {data: dataMonthlyJunJahit, loading: loadingMonthlyJunJahit, error: errorMonthlyJunJahit} = useQuery(CountMonthPesananJahit, { variables: { 
+    _like : "%2023%",
+    _ilike : "%Jun%"
+  }})
+
+  // console.log("cek data monthly jahit", dataMonthlyJanJahit.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.count)
+
+  
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Transaksi Penjualan 2023',
+      },
+    },
+  };
+
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June'];
+  const dataGrafikPakaian = [
+    dataMonthlyJanPakaian?.sekargaluhetnic_pesanan_pakaian_aggregate.aggregate.count, 
+    dataMonthlyFebPakaian?.sekargaluhetnic_pesanan_pakaian_aggregate.aggregate.count, 
+    dataMonthlyMarPakaian?.sekargaluhetnic_pesanan_pakaian_aggregate.aggregate.count, 
+    dataMonthlyAprPakaian?.sekargaluhetnic_pesanan_pakaian_aggregate.aggregate.count, 
+    dataMonthlyMayPakaian?.sekargaluhetnic_pesanan_pakaian_aggregate.aggregate.count, 
+    dataMonthlyJunPakaian?.sekargaluhetnic_pesanan_pakaian_aggregate.aggregate.count
+  ]
+  const dataGrafikJahit = [
+    dataMonthlyJanJahit?.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.count, 
+    dataMonthlyFebJahit?.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.count, 
+    dataMonthlyMarJahit?.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.count, 
+    dataMonthlyAprJahit?.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.count, 
+    dataMonthlyMayJahit?.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.count, 
+    dataMonthlyJunJahit?.sekargaluhetnic_pesanan_jahit_aggregate.aggregate.count
+  ]
+
+  const data = {
+    labels,
+    datasets: [
+    {
+      label: 'Pesanan Pakaian',
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 20 })),
+      data: dataGrafikPakaian,
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+    {
+      label: 'Pesanan Jahit',
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 20 })),
+      data: dataGrafikJahit,
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+  ],
+
+  }
+
+  // ======================================================================
 
   return (
     <div className='flex h-full'>

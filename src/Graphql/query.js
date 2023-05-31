@@ -144,10 +144,6 @@ query MyQuery($_neq: String = "null") {
     deskripsi
   }
 }
-
-
-
-
 `
 
 export const GetPesananPakaianDetail = gql `
@@ -262,7 +258,7 @@ query MyQuery($_eq: Int!) {
 
 export const CountPesananJahit = gql `
 query MyQuery {
-  sekargaluhetnic_pesanan_jahit_aggregate {
+  sekargaluhetnic_pesanan_jahit_aggregate(where: {kode_pemesanan: {_is_null: false}}) {
     aggregate {
       count
     }
@@ -272,12 +268,13 @@ query MyQuery {
 
 export const CountPesananPakaian = gql `
 query MyQuery {
-  sekargaluhetnic_pesanan_pakaian_aggregate {
+  sekargaluhetnic_pesanan_pakaian_aggregate(where: {pesanans_aggregate: {count: {predicate: {_gt: 0}}}}) {
     aggregate {
       count
     }
   }
 }
+
 `
 
 export const CountMonthPesananPakaian = gql `
@@ -324,6 +321,112 @@ query MyQuery {
         total_biaya
       }
     }
+  }
+}
+`
+
+export const GetPesananPakaianFilter = gql ` 
+query MyQuery($_ilike: String = "") {
+  sekargaluhetnic_pesanan_pakaian(where: {status: {_ilike: $_ilike}, pesanans_aggregate: {count: {predicate: {_gt: 0}}}}) {
+    created_at
+    id
+    ongkir
+    pesanan_session
+    status
+    total_harga
+    user_id
+    user {
+      email
+      id
+      jenis_kelamin
+      name
+      password
+      alamats {
+        alamat
+        id
+        kabupaten_kota
+        kecamatan
+        kelurahan
+        kodepos
+        negara
+        provinsi
+      }
+      telephone
+    }
+    pesanans {
+      id
+      created_at
+      katalog_id
+      pesanan_pakaian_id
+      katalog {
+        deskripsi
+        foto
+        gender
+        harga
+        id
+        nama
+      }
+    }
+    chats {
+      id
+      message
+      pesanan_pakaian_id
+      user_id
+    }
+    opsi_pengiriman
+    kode_pemesanan
+  }
+}
+`
+
+export const GetPesananJahitFilter = gql `
+query MyQuery($_neq: String = "null", $_ilike: String!) {
+  sekargaluhetnic_pesanan_jahit(where: {jenis_pakaian: {_neq: $_neq}, status: {_ilike: $_ilike}}) {
+    created_at
+    id
+    jahit_session
+    jenis_pakaian
+    kain
+    panjang_lengan
+    updated_at
+    user_id
+    user {
+      email
+      id
+      jenis_kelamin
+      name
+      telephone
+      alamats {
+        alamat
+        id
+        kabupaten_kota
+        kecamatan
+        kelurahan
+        kodepos
+        negara
+        provinsi
+      }
+    }
+    foto_desains {
+      foto
+      id
+    }
+    kode_pemesanan
+    lebar_bahu
+    lingkar_dada
+    lingkar_kerung_lengan
+    lingkar_leher
+    lingkar_pergelangan_tangan
+    lingkar_pinggang
+    lingkar_pinggul
+    ongkir
+    opsi_pengiriman
+    panjang_baju
+    status
+    total_biaya
+    deskripsi
+    metode_pembayaran
+    nama_rekening_pemilik
   }
 }
 `
