@@ -200,68 +200,72 @@ export default function KelolaReturBarang() {
 
                 <TabPanel>
                   <div>
-                    <table className='table-fixed w-full mt-10 '>
-                      <thead>
-                        <tr className='table-fixed'>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Kode Retur</th>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Kode Pemesanan</th>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Alasan</th>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Status</th>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {dataPakaian?.sekargaluhetnic_retur_produk?.map((el) => 
-                        <tr className='py-2 border-b'>
-                          <td className='px-5 py-1'>{el.id}</td>
-                          <td className='px-5 py-1'>{el.retur_produk_pesanan_pakaian.kode_pemesanan}</td>
-                          <th className='px-5 py-1 font-normal'>{el.alasan}</th>
-                          <th className='px-5 py-1 font-normal'>{el.status}</th>
-                          <th className='px-5 py-1'>
-                            <button className='bg-secondary2 text-white px-2 py-1 rounded-md text-sm border border-secondary2 font-light mr-2' onClick={() => {
-                              openModalPakaian();
-                              handleSelectDataPakaian(el.id)
-                            }}>Detail
-                            </button>
-                            <button className='bg-red-700 text-white px-2 py-1 rounded-md border border-red-700 text-sm font-light' >Hapus</button>
-                          </th>
-                        </tr>
-                        )}
-                      </tbody>
-                    </table>
+                    { loadingPakaian ? <LoadingSvg/> :
+                      <table className='table-fixed w-full mt-10 '>
+                        <thead>
+                          <tr className='table-fixed'>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Kode Retur</th>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Kode Pemesanan</th>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Alasan</th>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Status</th>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {dataPakaian?.sekargaluhetnic_retur_produk?.map((el) => 
+                          <tr className='py-2 border-b'>
+                            <td className='px-5 py-1'>{el.id}</td>
+                            <td className='px-5 py-1'>{el.retur_produk_pesanan_pakaian.kode_pemesanan}</td>
+                            <th className='px-5 py-1 font-normal'>{el.alasan}</th>
+                            <th className='px-5 py-1 font-normal'>{el.status}</th>
+                            <th className='px-5 py-1'>
+                              <button className='bg-secondary2 text-white px-2 py-1 rounded-md text-sm border border-secondary2 font-light mr-2' onClick={() => {
+                                openModalPakaian();
+                                handleSelectDataPakaian(el.id)
+                              }}>Detail
+                              </button>
+                              {/* <button className='bg-red-700 text-white px-2 py-1 rounded-md border border-red-700 text-sm font-light' >Hapus</button> */}
+                            </th>
+                          </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    }
                   </div>
                 </TabPanel>
                 <TabPanel>
                   <div>
-                    <table className='table-fixed w-full mt-10 '>
-                      <thead>
-                        <tr className='table-fixed'>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Kode Retur</th>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Kode Pemesanan</th>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Alasan</th>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Status</th>
-                          <th className='font-semibold uppercase px-5 py-1 text-secondary'>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {dataJahit?.sekargaluhetnic_retur_produk?.map((el) => 
-                        <tr className='py-2 border-b'>
-                          <td className='px-5 py-1'>{el.id}</td>
-                          <td className='px-5 py-1'>{el.retur_produk_pesanan_jahit.kode_pemesanan}</td>
-                          <th className='px-5 py-1 font-normal'>{el.alasan}</th>
-                          <th className='px-5 py-1 font-normal'>{el.status}</th>
-                          <th className='px-5 py-1'>
-                            <button className='bg-secondary2 text-white px-2 py-1 rounded-md text-sm border border-secondary2 font-light mr-2' onClick={() => {
-                              openModalJahit();
-                              handleSelectDataJahit(el.id)
-                            }}>Detail
-                            </button>
-                            <button className='bg-red-700 text-white px-2 py-1 rounded-md border border-red-700 text-sm font-light'>Hapus</button>
-                          </th>
-                        </tr>
-                        )}
-                      </tbody>
-                    </table>
+                    { loadingJahit ? <LoadingSvg/> :
+                      <table className='table-fixed w-full mt-10 '>
+                        <thead>
+                          <tr className='table-fixed'>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Kode Retur</th>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Kode Pemesanan</th>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Alasan</th>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Status</th>
+                            <th className='font-semibold uppercase px-5 py-1 text-secondary'>Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {dataJahit?.sekargaluhetnic_retur_produk?.map((el) => 
+                          <tr className='py-2 border-b'>
+                            <td className='px-5 py-1'>{el.id}</td>
+                            <td className='px-5 py-1'>{el.retur_produk_pesanan_jahit.kode_pemesanan}</td>
+                            <th className='px-5 py-1 font-normal'>{el.alasan}</th>
+                            <th className='px-5 py-1 font-normal'>{el.status}</th>
+                            <th className='px-5 py-1'>
+                              <button className='bg-secondary2 text-white px-2 py-1 rounded-md text-sm border border-secondary2 font-light mr-2' onClick={() => {
+                                openModalJahit();
+                                handleSelectDataJahit(el.id)
+                              }}>Detail
+                              </button>
+                              {/* <button className='bg-red-700 text-white px-2 py-1 rounded-md border border-red-700 text-sm font-light'>Hapus</button> */}
+                            </th>
+                          </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    }
                   </div>
                 </TabPanel>
               </Tabs>
