@@ -303,7 +303,7 @@ query MyQuery($_like: String = "", $_ilike: String = "") {
 
 export const SumPesananPakaian = gql `
 query MyQuery {
-  sekargaluhetnic_pesanan_pakaian_aggregate {
+  sekargaluhetnic_pesanan_pakaian_aggregate(where: {pesanans_aggregate: {count: {predicate: {_gt: 0}}}, status: {_nsimilar: "Menunggu Pembayaran||Pembayaran Ditolak||Dibatalkan"}}) {
     aggregate {
       sum {
         total_harga
@@ -311,11 +311,12 @@ query MyQuery {
     }
   }
 }
+
 `
 
 export const SumPesananJahit = gql `
 query MyQuery {
-  sekargaluhetnic_pesanan_jahit_aggregate {
+  sekargaluhetnic_pesanan_jahit_aggregate(where: {status: {_nsimilar: "Menunggu Pembayaran||Pembayaran Ditolak||Dibatalkan"}}) {
     aggregate {
       sum {
         total_biaya
@@ -323,6 +324,7 @@ query MyQuery {
     }
   }
 }
+
 `
 
 export const GetPesananPakaianFilter = gql ` 
@@ -427,6 +429,115 @@ query MyQuery($_neq: String = "null", $_ilike: String!) {
     deskripsi
     metode_pembayaran
     nama_rekening_pemilik
+  }
+}
+`
+
+export const PaginatePesananPakaian = gql `
+query MyQuery($month: String = "", $year: String = "", $day: String = "", $offset: Int!) {
+  sekargaluhetnic_pesanan_pakaian(where: {created_at: {_ilike: $month}, _and: {created_at: {_ilike: $year}, _and: {created_at: {_ilike: $day}, pesanans_aggregate: {count: {predicate: {_gt: 0}}}}}}, limit: 5, offset: $offset, order_by: {id: desc}) {
+    id
+    bukti_pembayaran
+    created_at
+    kode_pemesanan
+    metode_pembayaran
+    nama_rekening_pemilik
+    ongkir
+    opsi_pengiriman
+    pesanan_session
+    status
+    total_harga
+    user_id
+    pesanans {
+      katalog {
+        nama
+      }
+    }
+    pesanans_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+`
+// {
+//   "offset": 5
+// }
+
+export const PaginateCountPesananPakaian = gql `
+query MyQuery {
+  sekargaluhetnic_pesanan_pakaian(where: {pesanans_aggregate: {count: {predicate: {_gt: 0}}}}, order_by: {id: desc}) {
+    id
+    bukti_pembayaran
+    created_at
+    kode_pemesanan
+    metode_pembayaran
+    nama_rekening_pemilik
+    ongkir
+    opsi_pengiriman
+    pesanan_session
+    status
+    total_harga
+    user_id
+    pesanans {
+      katalog {
+        nama
+      }
+    }
+    pesanans_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
+`
+
+export const PaginatePesananJahit = gql `
+query MyQuery($offset: Int!, $day: String = "", $month: String = "", $year: String = "") {
+  sekargaluhetnic_pesanan_jahit(limit: 5, offset: $offset, order_by: {id: desc}, where: {created_at: {_ilike: $day}, _and: {created_at: {_ilike: $month}, _and: {created_at: {_ilike: $year}, jenis_pakaian: {_is_null: false}}}}) {
+    bukti_pembayaran
+    created_at
+    deskripsi
+    id
+    jahit_session
+    jenis_pakaian
+    kain
+    kode_pemesanan
+    lebar_bahu
+    lingkar_dada
+    lingkar_kerung_lengan
+    lingkar_leher
+    lingkar_pergelangan_tangan
+    lingkar_pinggang
+    lingkar_pinggul
+    metode_pembayaran
+    nama_rekening_pemilik
+    ongkir
+    opsi_pengiriman
+    panjang_baju
+    status
+    total_biaya
+    updated_at
+    user_id
+  }
+}
+
+`
+// {
+//   "offset": 0,
+//   "day": "%%",
+//   "month": "%%",
+//   "year": "%%"
+// }
+
+export const PaginateCountPesananJahit = gql `
+query MyQuery {
+  sekargaluhetnic_pesanan_jahit_aggregate(where: {jenis_pakaian: {_is_null: false}}) {
+    aggregate {
+      count
+    }
   }
 }
 `

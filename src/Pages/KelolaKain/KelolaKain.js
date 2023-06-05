@@ -131,7 +131,7 @@ function KelolaKain() {
  
    
    // setTotalBiaya(hargaKain + hargaJenisPakaian)
-   console.log("cek url", imageUrls )
+  //  console.log("cek url", imageUrls )
    const zero = () => {
      setImageUrls([])
    }
@@ -347,12 +347,12 @@ function KelolaKain() {
             <div>
               <h6 className='font-semibold text-lg'>Update Kain</h6>
               <div className='mt-5'>
-                <div className='mb-5'>
+                {/* <div className='mb-5'>
                   <p className='text-primary'>Gambar Kain</p>
-                  {/* <input onChange={handleChangeUpdateKain} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' value={updateStateKain.foto} placeholder='Gambar Kain'></input> */}
+                  <input onChange={handleChangeUpdateKain} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' value={updateStateKain.foto} placeholder='Gambar Kain'></input>
                   <img className='w-40 h-40 object-cover' src={updateStateKain.foto}></img>
                   <input type='file' className='mt-2 text-sm'></input>
-                </div>
+                </div> */}
                 <div className='mb-5'>
                   <p className='text-primary'>Nama Kain</p>
                   <input onChange={handleChangeUpdateKain} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='nama' value={updateStateKain.nama} placeholder='Nama Kain'></input>

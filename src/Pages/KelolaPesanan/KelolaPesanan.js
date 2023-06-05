@@ -175,9 +175,9 @@ function KelolaPesanan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.map((pesanan) => 
+                  {data?.map((pesanan, i) => 
                   <tr className='py-2 border-b'>
-                    <th className='py-2'>{pesanan.id}</th>
+                    <th className='py-2'>{i+1}</th>
                     <td className='px-5 py-1 text-center'>{pesanan.kode_pemesanan}</td>
                     <td className='px-5 py-1 text-center'>{pesanan.pesanans.length}</td>
                     <td className='px-5 py-1 text-center'>{pesanan.status}</td>

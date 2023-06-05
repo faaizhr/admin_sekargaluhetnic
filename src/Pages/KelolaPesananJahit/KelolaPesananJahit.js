@@ -176,9 +176,9 @@ export default function KelolaPesananJahit() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.map((jahit) => 
+                  {data?.map((jahit, i) => 
                   <tr className='py-2 border-b'>
-                    <th className='py-2'>{jahit.id}</th>
+                    <th className='py-2'>{i+1}</th>
                     <td className='px-5 py-1 text-center'>{jahit.kode_pemesanan}</td>
                     <td className='px-5 py-1 text-center'>{jahit.jenis_pakaian}</td>
                     <td className='px-5 py-1 text-center'>{jahit.status}</td>

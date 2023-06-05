@@ -63,7 +63,7 @@ function KelolaKatalog() {
 
   const {data: dataKatalog, loading, error} = useSubscription(SubscriptionKatalog)
 
-  console.log("cek data katalog", dataKatalog)
+  // console.log("cek data katalog", dataKatalog)
 
   const [katalog, setKatalog] = useState({
     foto: "",
@@ -118,7 +118,7 @@ function KelolaKatalog() {
 
   
   // setTotalBiaya(hargaKain + hargaJenisPakaian)
-  console.log("cek url", imageUrls )
+  // console.log("cek url", imageUrls )
   const zero = () => {
     setImageUrls([])
   }
@@ -142,7 +142,7 @@ function KelolaKatalog() {
   // AUTOMASI KODE PRODUK =============================
 
   const {data: countData} =useQuery(GetKatalog)
-  console.log("cek count data", countData?.sekargaluhetnic_katalog.length)
+  // console.log("cek count data", countData?.sekargaluhetnic_katalog.length)
 
   const [kodeProduk, setKodeProduk] = useState("KTLG")
 
@@ -154,8 +154,8 @@ function KelolaKatalog() {
     }
   }, [katalog.gender])
   
-  console.log("cek kode produk", kodeProduk)
-  console.log("cek katalog gender", katalog.gender)
+  // console.log("cek kode produk", kodeProduk)
+  // console.log("cek katalog gender", katalog.gender)
 
   // ==================================================
 
@@ -185,7 +185,7 @@ function KelolaKatalog() {
     }
   };
 
-  console.log(data)
+  // console.log(data)
 
   // ==================================================
 
@@ -198,7 +198,7 @@ function KelolaKatalog() {
       [name]: value,
     });
   }
-  console.log("cek katalog", katalog)
+  // console.log("cek katalog", katalog)
 
   const handleInsertKatalog = () => {
 
@@ -273,9 +273,9 @@ function KelolaKatalog() {
 
   const handleSelectKatalog = (value) => {
 
-    const found = data.sekargaluhetnic_katalog?.find(el => el.id == value);
-    console.log(found.id);
-    setUpdateStateKatalog(found);
+    const found = dataKatalog.sekargaluhetnic_katalog?.find(el => el.id == value);
+    console.log(found);
+    setUpdateStateKatalog(found)
   }
 
   const handleUpdateKatalog = () => {
@@ -469,14 +469,14 @@ function KelolaKatalog() {
           <div className='w-96 mx-auto'>
             <AiFillCloseCircle className='w-7 h-7 fill-secondary hover:fill-red-700 duration-200 cursor-pointer float-right' onClick={closeModalUpdate}></AiFillCloseCircle>
             <div>
-              <h6 className='font-semibold text-lg'>Update Kain</h6>
+              <h6 className='font-semibold text-lg'>Update Katalog</h6>
               <div className='mt-5'>
-                <div className='mb-5'>
+                {/* <div className='mb-5'>
                   <p className='text-primary'>Gambar</p>
-                  {/* <input onChange={handleChangeUpdateKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' value={updateStateKatalog.foto} placeholder='Gambar Kain'></input> */}
+                  <input onChange={handleChangeUpdateKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='foto' value={updateStateKatalog.foto} placeholder='Gambar Kain'></input>
                   <img className='w-32 h-50' src={updateStateKatalog.foto}></img>
                   <input type='file' className='mt-2 text-sm'></input>
-                </div>
+                </div> */}
                 <div className='mb-5'>
                   <p className='text-primary'>Nama</p>
                   <input onChange={handleChangeUpdateKatalog} className='border-b focus:outline-none focus:border-primary p-1 text-sm mt-1 w-full' name='nama' value={updateStateKatalog.nama} placeholder='Nama Kain'></input>
