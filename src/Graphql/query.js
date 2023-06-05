@@ -435,7 +435,7 @@ query MyQuery($_neq: String = "null", $_ilike: String!) {
 
 export const PaginatePesananPakaian = gql `
 query MyQuery($month: String = "", $year: String = "", $day: String = "", $offset: Int!) {
-  sekargaluhetnic_pesanan_pakaian(where: {created_at: {_ilike: $month}, _and: {created_at: {_ilike: $year}, _and: {created_at: {_ilike: $day}, pesanans_aggregate: {count: {predicate: {_gt: 0}}}}}}, limit: 5, offset: $offset, order_by: {id: desc}) {
+  sekargaluhetnic_pesanan_pakaian(where: {created_at: {_ilike: $month}, status: {_eq: "Pesanan Selesai"}, _and: {created_at: {_ilike: $year}, _and: {created_at: {_ilike: $day}, pesanans_aggregate: {count: {predicate: {_gt: 0}}}}}}, limit: 5, offset: $offset, order_by: {id: desc}) {
     id
     bukti_pembayaran
     created_at
@@ -467,7 +467,7 @@ query MyQuery($month: String = "", $year: String = "", $day: String = "", $offse
 
 export const PaginateCountPesananPakaian = gql `
 query MyQuery {
-  sekargaluhetnic_pesanan_pakaian(where: {pesanans_aggregate: {count: {predicate: {_gt: 0}}}}, order_by: {id: desc}) {
+  sekargaluhetnic_pesanan_pakaian(where: {pesanans_aggregate: {count: {predicate: {_gt: 0}}}, status: {_eq: "Pesanan Selesai"}}, order_by: {id: desc}) {
     id
     bukti_pembayaran
     created_at
@@ -496,7 +496,7 @@ query MyQuery {
 
 export const PaginatePesananJahit = gql `
 query MyQuery($offset: Int!, $day: String = "", $month: String = "", $year: String = "") {
-  sekargaluhetnic_pesanan_jahit(limit: 5, offset: $offset, order_by: {id: desc}, where: {created_at: {_ilike: $day}, _and: {created_at: {_ilike: $month}, _and: {created_at: {_ilike: $year}, jenis_pakaian: {_is_null: false}}}}) {
+  sekargaluhetnic_pesanan_jahit(limit: 5, offset: $offset, order_by: {id: desc}, where: {created_at: {_ilike: $day}, _and: {created_at: {_ilike: $month}, _and: {created_at: {_ilike: $year}, jenis_pakaian: {_is_null: false}}}, status: {_eq: "Pesanan Selesai"}}) {
     bukti_pembayaran
     created_at
     deskripsi
@@ -524,6 +524,7 @@ query MyQuery($offset: Int!, $day: String = "", $month: String = "", $year: Stri
   }
 }
 
+
 `
 // {
 //   "offset": 0,
@@ -534,7 +535,7 @@ query MyQuery($offset: Int!, $day: String = "", $month: String = "", $year: Stri
 
 export const PaginateCountPesananJahit = gql `
 query MyQuery {
-  sekargaluhetnic_pesanan_jahit_aggregate(where: {jenis_pakaian: {_is_null: false}}) {
+  sekargaluhetnic_pesanan_jahit_aggregate(where: {jenis_pakaian: {_is_null: false}, status: {_eq: "Pesanan Selesai"}}) {
     aggregate {
       count
     }

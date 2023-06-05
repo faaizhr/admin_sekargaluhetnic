@@ -34,6 +34,7 @@ subscription MySubscription {
   sekargaluhetnic_retur_produk(where: {pesanan_pakaian_id: {_is_null: false}}) {
     alasan
     id
+    kode_retur
     pesanan_jahit_id
     pesanan_pakaian_id
     status
@@ -78,6 +79,7 @@ subscription MySubscription {
   sekargaluhetnic_retur_produk(where: {pesanan_jahit_id: {_is_null: false}}) {
     alasan
     id
+    kode_retur
     pesanan_jahit_id
     pesanan_pakaian_id
     status

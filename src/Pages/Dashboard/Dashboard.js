@@ -374,7 +374,7 @@ useEffect(() => {
                   <p className='text-lg tracking-wider font-light'>{penjualanBulanan} Transaksi</p> 
                 </div>
               </div>
-              <div className='bg-[#DAD7CE] text-white w-full h-36 px-5 py-3 rounded-2xl'>
+              <div className='bg-[#6E7374] text-white w-full h-36 px-5 py-3 rounded-2xl'>
                 <h6 className='font-light text-xl uppercase'>Total Pendapatan</h6>
                 <div className='flex justify-start gap-2 items-center'>
                   <FaMoneyBillWave className='my-2 w-5 h-5 fill-white'/>
@@ -493,7 +493,7 @@ useEffect(() => {
               </div>
               <div className='mt-5 mb-1 flex items-center justify-between'>
                 <div>
-                  <p className='text-sm text-gray-600'>Halaman ke {page} dari {Math.round(lastPage / 5) + 1}</p>
+                  <p className='text-sm text-gray-600'>Halaman ke {page} dari {Math.floor(lastPage / 5) + 1}</p>
                 </div>
                 <div className='flex justify-end'>
                   { page == 1 ? 
@@ -622,7 +622,7 @@ useEffect(() => {
               </div>
               <div className='mt-5 mb-1 flex items-center justify-between'>
                 <div>
-                  <p className='text-sm text-gray-600'>Halaman ke {pageJahit} dari {Math.round(lastPageJahit / 5) }</p>
+                  <p className='text-sm text-gray-600'>Halaman ke {pageJahit} dari {Math.floor(lastPageJahit / 5) + 1}</p>
                 </div>
                 <div className='flex justify-end'>
                   { pageJahit == 1 ? 

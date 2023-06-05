@@ -214,7 +214,7 @@ export default function KelolaReturBarang() {
                         <tbody>
                           {dataPakaian?.sekargaluhetnic_retur_produk?.map((el) => 
                           <tr className='py-2 border-b'>
-                            <td className='px-5 py-1'>{el.id}</td>
+                            <td className='px-5 py-1'>{el.kode_retur}</td>
                             <td className='px-5 py-1'>{el.retur_produk_pesanan_pakaian.kode_pemesanan}</td>
                             <th className='px-5 py-1 font-normal'>{el.alasan}</th>
                             <th className='px-5 py-1 font-normal'>{el.status}</th>
@@ -249,7 +249,7 @@ export default function KelolaReturBarang() {
                         <tbody>
                           {dataJahit?.sekargaluhetnic_retur_produk?.map((el) => 
                           <tr className='py-2 border-b'>
-                            <td className='px-5 py-1'>{el.id}</td>
+                            <td className='px-5 py-1'>{el.kode_retur}</td>
                             <td className='px-5 py-1'>{el.retur_produk_pesanan_jahit.kode_pemesanan}</td>
                             <th className='px-5 py-1 font-normal'>{el.alasan}</th>
                             <th className='px-5 py-1 font-normal'>{el.status}</th>
