@@ -89,7 +89,7 @@ const ChatJahit = ({id, popUp, chatModal}) => {
           <div className="h-96 flex-col-reverse flex overflow-y-scroll">
             <div>
               {dataChat?.sekargaluhetnic_chat_jahit?.map((el) => 
-                <div className={el.user_id != Cookies.get("okogaye") ? "bg-secondary text-white px-3 py-2 w-3/4 flex justify-end mb-1 ml-auto mr-0 rounded-tl-xl rounded-bl-xl rounded-br-xl" : "bg-secondary3 text-primary px-3 py-2 w-3/4 flex justify-start mb-1 ml-0 mr-auto rounded-tr-xl rounded-bl-xl rounded-br-xl"}>
+                <div className={el.user_id == Cookies.get("okogaye") ? "bg-secondary text-white px-3 py-2 w-3/4 flex justify-end mb-1 ml-auto mr-0 rounded-tl-xl rounded-bl-xl rounded-br-xl" : "bg-secondary3 text-primary px-3 py-2 w-3/4 flex justify-start mb-1 ml-0 mr-auto rounded-tr-xl rounded-bl-xl rounded-br-xl"}>
                   <p className="m-0  font-normal text-sm">{el.message}</p>
                 </div>
               )}

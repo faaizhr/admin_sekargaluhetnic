@@ -284,9 +284,10 @@ function KelolaKain() {
         <Modal
           isOpen={modalIsOpenInsert}
           onRequestClose={closeModalInsert}
-          style={customStyles}
+          // style={customStyles}
+          className="bg-white shadow-md p-10 w-full md:w-[550px] mx-auto h-[550px] overflow-y-scroll absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border rounded-md"
         >
-          <div className='w-full'>
+          <div className='w-full md:w-96 mx-auto'>
             <AiFillCloseCircle className='w-7 h-7 fill-secondary hover:fill-red-700 duration-200 cursor-pointer float-right' onClick={closeModalInsert}></AiFillCloseCircle>
             <div>
               <h6 className='font-semibold text-lg'>Tambah Kain</h6>
@@ -340,9 +341,10 @@ function KelolaKain() {
         <Modal
           isOpen={modalIsOpenUpdate}
           onRequestClose={closeModalUpdate}
-          style={customStyles}
+          // style={customStyles}
+          className="bg-white shadow-md p-10 w-full md:w-[550px] mx-auto h-[550px] overflow-y-scroll absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border rounded-md"
         >
-          <div className='w-full'>
+          <div className='w-full md:w-96 mx-auto'>
             <AiFillCloseCircle className='w-7 h-7 fill-secondary hover:fill-red-700 duration-200 cursor-pointer float-right' onClick={closeModalUpdate}></AiFillCloseCircle>
             <div>
               <h6 className='font-semibold text-lg'>Update Kain</h6>

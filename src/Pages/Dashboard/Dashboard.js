@@ -359,7 +359,7 @@ useEffect(() => {
               <h2 className='text-4xl lg:text-6xl font-bold text-primary uppercase'>Dashboard</h2>
               <img className='w-20 h-20' src='https://media.discordapp.net/attachments/915505289174847510/1107676044670009464/Group_133.png?width=547&height=547'></img>
             </div>
-            <div className='mt-10 grid grid-cols-3 gap-12'>
+            <div className='mt-10 grid grid-cols-1 md:grid-cols-3 gap-12'>
               <div className='bg-[#6E7374] text-white w-full h-36 px-5 py-3 rounded-2xl'>
                 <h6 className='font-light text-xl uppercase'>Total Penjualan</h6>
                 <div className='flex justify-start gap-2 items-center'>

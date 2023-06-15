@@ -383,9 +383,9 @@ function KelolaKatalog() {
           isOpen={modalIsOpenInsert}
           onRequestClose={closeModalInsert}
           // style={customStyles}
-          className="bg-white shadow-md p-10 w-[550px] mx-auto h-[550px] overflow-y-scroll mt-20 border rounded-md"
+          className="bg-white shadow-md p-10 w-full md:w-[550px] mx-auto h-[550px] overflow-y-scroll absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border rounded-md"
           >
-          <div className='w-96 mx-auto'>
+          <div className='w-full md:w-96 mx-auto'>
             <AiFillCloseCircle className='w-7 h-7 fill-secondary hover:fill-red-700 duration-200 cursor-pointer float-right' onClick={closeModalInsert}></AiFillCloseCircle>
             <div>
               <h6 className='font-semibold text-lg'>Tambah Kain</h6>
@@ -464,9 +464,9 @@ function KelolaKatalog() {
           isOpen={modalIsOpenUpdate}
           onRequestClose={closeModalUpdate}
           // style={customStyles}
-          className="bg-white shadow-md p-10 w-[550px] mx-auto h-[550px] overflow-y-scroll mt-20 border rounded-md"
+          className="bg-white shadow-md p-10 w-full md:w-[550px] mx-auto h-[550px] overflow-y-scroll absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border rounded-md"
         >
-          <div className='w-96 mx-auto'>
+          <div className='w-full md:w-96 mx-auto'>
             <AiFillCloseCircle className='w-7 h-7 fill-secondary hover:fill-red-700 duration-200 cursor-pointer float-right' onClick={closeModalUpdate}></AiFillCloseCircle>
             <div>
               <h6 className='font-semibold text-lg'>Update Katalog</h6>

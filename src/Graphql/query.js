@@ -329,7 +329,7 @@ query MyQuery {
 
 export const GetPesananPakaianFilter = gql ` 
 query MyQuery($_ilike: String = "") {
-  sekargaluhetnic_pesanan_pakaian(where: {status: {_ilike: $_ilike}, pesanans_aggregate: {count: {predicate: {_gt: 0}}}}) {
+  sekargaluhetnic_pesanan_pakaian(where: {status: {_ilike: $_ilike}, pesanans_aggregate: {count: {predicate: {_gt: 0}}}}, order_by: {id: desc}) {
     created_at
     id
     ongkir
@@ -379,11 +379,12 @@ query MyQuery($_ilike: String = "") {
     kode_pemesanan
   }
 }
+
 `
 
 export const GetPesananJahitFilter = gql `
 query MyQuery($_neq: String = "null", $_ilike: String!) {
-  sekargaluhetnic_pesanan_jahit(where: {jenis_pakaian: {_neq: $_neq}, status: {_ilike: $_ilike}}) {
+  sekargaluhetnic_pesanan_jahit(where: {jenis_pakaian: {_neq: $_neq}, status: {_ilike: $_ilike}}, order_by: {id: desc}) {
     created_at
     id
     jahit_session
@@ -431,6 +432,7 @@ query MyQuery($_neq: String = "null", $_ilike: String!) {
     nama_rekening_pemilik
   }
 }
+
 `
 
 export const PaginatePesananPakaian = gql `

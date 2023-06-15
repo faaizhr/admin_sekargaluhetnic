@@ -11,6 +11,9 @@ import Navigation from '../../Components/Sidebar/Sidebar';
 import ChatJahit from '../../Components/Chat/ChatJahit';
 import { FaBars } from "react-icons/fa"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { GetPesananPakaian } from '../../Graphql/query';
 import { KonfirmasiPembayaranPesananJahit } from '../../Graphql/mutation';
 import { CancelPesananJahit } from '../../Graphql/mutation';
@@ -84,11 +87,20 @@ export default function DetailKelolaPesananJahit() {
 
   const [cancelPesanan, {loading: loadingCancelPesanan}] = useMutation(CancelPesananJahit)
   const handleCancelPesanan = () => {
-    cancelPesanan({
-      variables: {
-        _eq: location.state.id,
-      }
-    })
+    if(window.confirm("Apakah Anda yakin ingin membatalkan pesanan ini?") == true) {
+      cancelPesanan({
+        variables: {
+          _eq: location.state.id,
+          status: "Dibatalkan"
+        }
+      })
+      toast.success("Pesanan berhasil dibatalkan")
+      setTimeout(() => {
+        window.location.reload(false);
+      }, 2000);
+    } else {
+
+    }
   }
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -147,6 +159,7 @@ export default function DetailKelolaPesananJahit() {
 
   return (
     <div className='flex h-full'>
+      <ToastContainer/>
       <Navigation />
       <main className='w-full'>
         <div className='bg-secondary3 p-5 block md:hidden'>
@@ -291,8 +304,11 @@ export default function DetailKelolaPesananJahit() {
             </div>
           </div>
         </div>
+
+        <div className={ chatModal ? 'fixed w-full h-full bg-gray-400 opacity-50 top-0' : 'hidden'} onClick={popUpModal}></div>
+
         <div className={ chatModal ? 'block': 'hidden' }>
-          <div className="w-[400px] fixed bottom-5 right-5 bg-white border shadow px-1 py-2 rounded-md">
+          <div className="w-full md:w-[400px] fixed bottom-5 right-0 md:right-5 bg-white border shadow px-1 py-2 rounded-md">
             <ChatJahit id={location.state.id} popUp={popUpModal} chatModal={chatModal}/>
           </div>
         </div>
@@ -300,9 +316,10 @@ export default function DetailKelolaPesananJahit() {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
-          style={customStyles}
+          // style={customStyles}
+          className="bg-white shadow-md p-10 w-full md:w-[550px] mx-auto h-[550px] overflow-y-scroll absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border rounded-md"
         >
-          <div className='w-full'>
+          <div className='w-full md:w-96 mx-auto'>
             <AiFillCloseCircle className='w-7 h-7 fill-secondary hover:fill-red-700 duration-200 cursor-pointer float-right' onClick={closeModal}></AiFillCloseCircle>
             <div>
               <h6 className='font-semibold text-lg'>Informasi Pembayaran</h6>

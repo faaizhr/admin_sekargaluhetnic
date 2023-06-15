@@ -203,7 +203,7 @@ export default function DetailKelolaPesanan() {
                   <h6 className='font-medium'>Jumlah Produk :  <span className='font-normal'>{dataPesanan?.sekargaluhetnic_pesanan_pakaian[0].pesanans.length}</span></h6>
                   <div className='grid gap-5'>
                     {dataPesanan?.sekargaluhetnic_pesanan_pakaian[0].pesanans?.map((produk) => 
-                    <div className='py-2 border-b grid grid-cols-3'>
+                    <div className='py-2 border-b grid grid-cols-1 lg:grid-cols-3'>
                       <img className='col-span-1 w-32 h-32 object-cover' src={produk.katalog.foto}></img>
                       <div className='col-span-2 flex flex-col justify-between'>
                         <div className=''>
@@ -282,19 +282,25 @@ export default function DetailKelolaPesanan() {
             </div>
           </div>
         </div>
+
+        <div className={ chatModal ? 'fixed w-full h-full bg-gray-400 opacity-50 top-0' : 'hidden'} onClick={popUpModal}></div>
+
+        {/* MODAL CHAT */}
         <div className={ chatModal ? 'block': 'hidden' }>
-          <div className="w-[400px] fixed bottom-5 right-5 bg-white border shadow px-1 py-2 rounded-md">
+          <div className="w-full md:w-[400px] fixed bottom-5 right-0 md:right-5 bg-white border shadow px-1 py-2 rounded-md">
             <Chat id={location.state.id} popUp={popUpModal} chatModal={chatModal}/>
           </div>
         </div>
 
 
+        {/* MODAL PEMBAYARAN */}
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
-          style={customStyles}
+          // style={customStyles}
+          className="bg-white shadow-md p-10 w-full md:w-[550px] mx-auto h-[550px] overflow-y-scroll absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border rounded-md"
         >
-          <div className='w-full'>
+          <div className='w-full md:w-96 mx-auto'>
             <AiFillCloseCircle className='w-7 h-7 fill-secondary hover:fill-red-700 duration-200 cursor-pointer float-right' onClick={closeModal}></AiFillCloseCircle>
             <div>
               <h6 className='font-semibold text-lg'>Informasi Pembayaran</h6>
