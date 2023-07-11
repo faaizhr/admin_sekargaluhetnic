@@ -13,6 +13,7 @@ query MyQuery($_eq: String!, $_eq1: String!) {
     password
     user_id
     email
+    role
   }
 }
 `
@@ -51,6 +52,7 @@ export default function Login() {
       // setLoginSuccess("Login Berhasil, Harap Tunggu....")
       Cookies.set("token", v4());
       Cookies.set("okogaye", data?.sekargaluhetnic_admin[0]?.user_id);
+      Cookies.set("role", data?.sekargaluhetnic_admin[0]?.role);
       return navigate ("/")
     } else {
       setErrorLogin("Email atau Password Salah")

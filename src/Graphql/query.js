@@ -158,6 +158,7 @@ query MyQuery($_eq: Int!) {
     status
     total_harga
     user_id
+    nomor_resi
     user {
       email
       id
@@ -205,6 +206,7 @@ query MyQuery($_eq: Int!) {
   sekargaluhetnic_pesanan_jahit(where: {id: {_eq: $_eq}}) {
     created_at
     deskripsi
+    nomor_resi
     foto_desains {
       foto
       id

@@ -7,7 +7,8 @@ import { GiRolledCloth } from "react-icons/gi"
 import { RiTShirt2Fill } from "react-icons/ri"
 import { GiSewingMachine } from "react-icons/gi"
 import { HiBookOpen, HiOutlineLogout, HiBars3CenterLeft } from "react-icons/hi"
-import { TbTruckReturn } from "react-icons/tb"
+import { TbTruckReturn, TbReportAnalytics } from "react-icons/tb"
+
 
 import Cookies from "js-cookie"
 
@@ -19,6 +20,7 @@ function Navigation() {
   const handleLogout = () => {
     Cookies.remove("okogaye")
     Cookies.remove("token")
+    Cookies.remove("role")
     navigate("/login")
   }
 
@@ -71,6 +73,15 @@ function Navigation() {
             >
               <p className='text-sm'>Kelola Kelola Retur Barang</p>
             </MenuItem>
+            { Cookies.get("role") == "superadmin" ? 
+              <MenuItem 
+                component={<Link to="/laporan-penjualan" />}
+                icon={<TbReportAnalytics color='#3F4E4F'/>} 
+                className="text-xl"
+              >
+                <p className='text-sm'>Laporan Penjualan</p>
+              </MenuItem> : ""
+            }
           </Menu>
           <Menu className='bottom-5'>
             <MenuItem 

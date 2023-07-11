@@ -199,3 +199,29 @@ mutation MyMutation($_eq: Int!, $status: String!) {
 //   _eq: 2,
 //   status: status
 // }
+
+
+export const HandleInputNomorResi = gql `
+mutation MyMutation($id: Int!, $nomor_resi: String = "") {
+  update_sekargaluhetnic_pesanan_pakaian_by_pk(pk_columns: {id: $id}, _set: {nomor_resi: $nomor_resi}) {
+    id
+  }
+}
+`
+// {
+//   "id": 92,
+//   "nomor_resi": "AS76A8VSAS8BAS"
+// }
+
+
+export const HandleInputNomorResiJahit = gql `
+mutation MyMutation($id: Int!, $nomor_resi: String!) {
+  update_sekargaluhetnic_pesanan_jahit_by_pk(pk_columns: {id: $id}, _set: {nomor_resi: $nomor_resi}) {
+    id
+  }
+}
+`
+// {
+//   "id": 92,
+//   "nomor_resi": "AS76A8VSAS8BAS"
+// }

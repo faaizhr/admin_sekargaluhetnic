@@ -18,6 +18,7 @@ import { GetPesananPakaian } from '../../Graphql/query';
 import { KonfirmasiPembayaranPesananJahit } from '../../Graphql/mutation';
 import { CancelPesananJahit } from '../../Graphql/mutation';
 import { GetPesananJahitDetail } from '../../Graphql/query';
+import { HandleInputNomorResiJahit } from '../../Graphql/mutation';
 import { AiFillCloseCircle } from "react-icons/ai"
 
 const SubscriptionChat = gql `
@@ -101,6 +102,25 @@ export default function DetailKelolaPesananJahit() {
     } else {
 
     }
+  }
+
+
+  const [nomorResi, setNomorResi] = useState("")
+  const handleChangeNomorResi = (e) => {
+    setNomorResi(e.target.value)
+  }
+
+  const [handleNomorResi, {loading: loadingInputResi}] = useMutation(HandleInputNomorResiJahit)
+  const handleInputResi = () => {
+    handleNomorResi({
+      variables: {
+        id: location.state.id,
+        nomor_resi: nomorResi
+      }
+    })
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 1000);
   }
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -269,6 +289,10 @@ export default function DetailKelolaPesananJahit() {
                   <h6 className='font-medium'>Total Biaya</h6>
                   <p>Rp{dataPesanan?.sekargaluhetnic_pesanan_jahit[0].total_biaya.toLocaleString()}</p>
                 </div>
+                <div className='mt-2'>
+                  <h6 className='font-medium'>Nomor Resi</h6>
+                  <p>{dataPesanan?.sekargaluhetnic_pesanan_jahit[0].nomor_resi}</p>
+                </div>
 
                 { dataPesanan?.sekargaluhetnic_pesanan_jahit[0].status == "Pembayaran Diterima" ||      dataPesanan?.sekargaluhetnic_pesanan_jahit[0].status == "Pesanan Diproses" ||
                 dataPesanan?.sekargaluhetnic_pesanan_jahit[0].status == "Menunggu Kurir" ||
@@ -283,6 +307,17 @@ export default function DetailKelolaPesananJahit() {
                   </select>
                   <div className='flex justify-end'>
                     <button onClick={handleStatusPesanan} className='bg-secondary px-3 py-1 text-white rounded-md mt-3'>Simpan</button>
+                  </div>
+                </div> : ""
+              }
+
+              {
+                dataPesanan?.sekargaluhetnic_pesanan_jahit[0].status == "Menunggu Kurir" ? 
+                <div className='mt-5'>
+                  <p>Masukkan Nomor Resi Pengiriman</p>
+                  <input type='text' onChange={handleChangeNomorResi} className='border-b focus:border-secondary focus:outline-none w-full'></input>
+                  <div className='mt-3 flex justify-end'>
+                    <button className='border border-secondary rounded-md px-5 py-1 bg-secondary text-white' onClick={handleInputResi}>Update Nomor Resi</button>
                   </div>
                 </div> : ""
               }
